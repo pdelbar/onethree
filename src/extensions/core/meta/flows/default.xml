@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<redirects>
+	<redirect task="default"><![CDATA[ scheme=::scheme::&task=list&view=list ]]></redirect>
+	<redirect task="apply"><![CDATA[ scheme=::scheme::&task=edit&view=edit&id=::id:: ]]></redirect>
+	<redirect task="save" alias="update,insert"><![CDATA[ scheme=::scheme::&task=list&view=list ]]></redirect>
+	<redirect task="cancel"><![CDATA[ scheme=::scheme::&task=list&view=list ]]></redirect>
+	<redirect task="formerror"><![CDATA[ scheme=::scheme::&task=edit&view=edit&id=::id:: ]]></redirect>
+</redirects>

@@ -1,0 +1,14 @@
+{include label.html}{include info.html}{include error.html}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<input type="file" id="{= id}" name="{= name}" />{= required}
+	{if 'no' == isSimple && model->filepath != '' && model->secret != ''}
+	<a href="{= oneUrl}lib/libraries/getfile.php?scheme={= model->getScheme()->getName()}&id={= model->secret}" target="_blank">{= model->filename}</a> Remove? <input type="checkbox" name="{= name}RemoveFile" value="1" />
+	{endif}
+	{if 'yes' == isSimple && '' != trim(value)}
+	<a href="{= vendorUrl}/file.php?path={= encPath}&label={= encLabel}&check={= check}" target="_blank">{= label.'.'.extension}</a> Remove? <input type="checkbox" name="{= substr(name, 0, -1).'RemoveFile]'}" value="1" />
+	{endif}
+	{if trim( label ) != '' && lblLast}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

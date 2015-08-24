@@ -1,0 +1,23 @@
+{set form = oneform:get(formfile, model, array('formName' => 'searchform'))}
+{= oneform:renderStart(form, model)}
+{= oneform:renderBody(form, model)}
+<input type="hidden" name="task" value="search" />
+<input type="submit" name="doWeightSearch" value="{@ searchform:SEARCH}" />
+{= oneform:renderEnd(form, model)}
+
+{if is_array( results )}
+	{if (count( results ) > 0)}
+		<div>{@ searchform:RESULTS_FOUND}: {= count( results )}</div>
+		<ul>
+		{loop results result}
+			{set link = one:view( result, 'searchresult', 'link' )}
+			{if trim( link ) == ''}
+				{set link = joomla:route( 'index.php?option=com_one&scheme=' . scheme->getName() . '&task=detail&view=detail&id=' . one:getIdentityValue( result ), false )}
+			{endif}
+			<li><a href="{= link}">{= one:view( result, 'searchresult', 'title' )} ({= result->One_Search_Weight}%)</a><br />
+			{= one:view( result, 'searchresult', 'text' )}</li>
+		{endloop}</ul>
+	{else}
+		{@ searchform:NO_RESULTS_FOUND}
+	{endif}
+{endif}

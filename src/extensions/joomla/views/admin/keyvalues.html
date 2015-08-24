@@ -1,0 +1,14 @@
+{set schemeName = joomla:getVar('scheme')}
+{set chosen = joomla:getVar('selected', '')}
+<option value=""> --- </option>
+{if trim(schemeName) != ''}
+	{set query = one:selectQuery(schemeName)}
+	{set models = query->execute(1, 1)}
+	{loop models model}
+		{set selected = ''}
+		{if one:getIdentityValue(model) == chosen}
+			{set selected = ' selected="selected"'}
+		{endif}
+		<option value="{= one:getIdentityValue(model)}"{= selected}>{= one:getAlias(model)}</option>
+	{endloop}
+{endif}

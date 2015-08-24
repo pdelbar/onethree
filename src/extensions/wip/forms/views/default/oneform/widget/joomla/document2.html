@@ -1,0 +1,10 @@
+{include label.html}{include info.html}{include error.html}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<input type="text" id="{= id}" name="{= name}" value="{= value}"{= events}{= params} readonly="readonly" style="float: left;" />{= required}
+	<div class="button2-left"><div class="image"><a class="modal-button" title="Choose document" href="{= one:getOneInstance()->getUrl()}/lib/form/widget/joomla/document2/index.php?path={= base64_encode( path )}&widget={= id}"  rel="{{handler: 'iframe', size: {{x: 570, y: 400}}}}">Choose document</a></div></div>
+	<div class="button2-left"><div class="image"><a title="Clear document" href="#" onclick="document.getElementById( '{= id}' ).value = ''; return false;">Clear document</a></div></div>
+	{if trim( label ) != '' && lblLast}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

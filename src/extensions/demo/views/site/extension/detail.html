@@ -1,0 +1,13 @@
+<h1>{= model->name}</h1>
+<p>
+    This is a {= model->type}, currently {if model->enabled}enabled{else}disabled{endif}.
+</p>
+{set items = model->menuitems}
+{if count(items) > 0}
+    <h2>Used in these menu items</h2>
+    <ul>
+        {loop items item}
+            {= one:view(item,'li')}
+        {endloop}
+    </ul>
+{endif}

@@ -1,0 +1,160 @@
+<script>
+function toggle(el)
+{{
+	if (el.style.display == 'none') {{
+		 el.style.display = '';
+	}} else {{
+		el.style.display = 'none';
+	}}
+}}
+</script>
+
+<style>
+table.oneDetailGrid {{
+	border-collapse: collapse;
+}}
+table.oneDetailGrid tr {{
+	height: 1.5em;
+}}
+table.oneDetailGrid tr.header,
+table.oneDetailGrid tr.footer
+{{
+	background-color: #e7e7e7;
+}}
+table.oneDetailGrid tr.related
+{{
+	background-color: #f0f0f0;
+}}
+table.oneDetailGrid tr td {{
+	border: 1px solid #d7d7d7;
+	border-collapse: collapse;
+	padding: 1px 4px;
+}}
+table.oneDetailGrid tr td.type {{
+	font-style: italic;
+	color: #999;
+}}
+table.oneDetailGrid tr.related td.count {{
+	font-weight: normal  !important;
+	text-align: center;
+	color: #999;
+}}
+table.oneDetailGrid tr td.null {{
+	background-color: #f0f0f0;
+	color: #999;
+}}
+table.oneDetailGrid tr.header td
+{{
+}}
+table.oneDetailGrid tr.footer td
+{{
+}}
+table.oneDetailGrid tr td a {{
+	text-decoration: none;
+}}
+</style>
+
+{set name=model->getSchemeName()}
+{set sch=model->getScheme()}
+{if sch}
+	{set id = one:getIdentityValue( model )}
+	{set listurl = joomla:route('index.php?option=com_one&Itemid='.joomla:getItemid().'&scheme=' . name . '&task=list')}
+    {if false}
+    	{set delurl = joomla:route('index.php?option=com_one&Itemid='.joomla:getItemid().'&scheme=' . name . '&task=remove&id='.id)}
+	    {set edurl = joomla:route('index.php?option=com_one&Itemid='.joomla:getItemid().'&scheme=' . name . '&task=edit&id='.id)}
+    {endif}
+
+	<table class="oneDetailGrid" cellspacing="0" >
+		<tr class="header">
+			<td colspan="4">
+				 Instance <b>{= name}</b> #{= id}
+			</td>
+		</tr>
+		{set atts = sch->get('attributes')}
+		{loop atts at attr}
+			<tr>
+				<td align="center">{if attr->isIdentity()}<i class="icon icon-key"></i>{endif}</td>
+				<td class="type">{= attr->getType()}</td>
+				<td><b>{= attr->getName()}{if attr->required}*{endif}</b></td>
+				{set val = model->__get(at)}
+				<td {if val === null}class="null"{endif}>{if val === null}<i>null</i>{else}{= val}{endif}</td>
+			</tr>
+		{endloop}
+
+		{set lnks = sch->getLinks()}
+		{loop lnks lnk}
+			{set rsch = one:getScheme( lnk->getTarget() )}
+			{if rsch}
+				{set rdat = rsch->getIdentityAttribute()}
+				{if (lnk->getAdapterType() == "onetomany")}{set card="1:n"}{endif}
+				{if (lnk->getAdapterType() == "manytomany")}{set card="m:n"}{endif}
+				{if (lnk->getAdapterType() == "manytoone")}{set card="n:1"}{endif}
+				{if card}{set card = card . ' '}{endif}
+
+				{set xxs = model->getRelated(lnk->getName())}
+				{set clss = lnk->getName() . '_detail'}
+				<tr class="related">
+					<td class="count">{= count(xxs)} </td>
+					<td colspan=3>
+						 <b>{= lnk->getName()}</b>  ({= card}<i>{= lnk->getTarget()}</i>)
+						 {if count(xxs)>1}
+                            <a href="#" onclick="$$('tr.{= clss}').each( toggle ); var ic = $('x{= clss}').src;; if (ic.match( /bullet_arrow_down.png/ )) {{ $('x{= clss}').src = '{= one:getOneInstance()->getUrl()}/vendor/images/icons/bullet_arrow_up.png'; }} else {{ $('x{= clss}').src = '{= one:getOneInstance()->getUrl()}/vendor/images/icons/bullet_arrow_down.png' }};  return false;"><img id="x{= clss}" style="vertical-align: text-bottom;" src="{= one:getOneInstance()->getUrl()}/vendor/images/icons/bullet_arrow_down.png" ></a>
+                        {endif}
+					</td>
+				 </tr>
+				{set tgt = lnk->getTarget()}
+				{set stub = 'index.php?option=com_one&Itemid='.joomla:getItemid().'&scheme=' . tgt . '&task=detail&id='}
+				{if !is_array(xxs)}
+					{@ LINKROW xxs}
+				{else}
+					 {loop xxs xx}
+					 	{@ LINKROW xx}
+					{endloop}
+				{endif}
+			{endif}
+		{endloop}
+
+        {if false}
+		<tr class="header">
+			<td>
+				 <a href="{= edurl}" style="vertical-align: text-bottom;"><img src="{= one:getOneInstance()->getUrl()}/vendor/images/icons/pencil.png"></a>
+			</td>
+			<td colspan="3">
+				Edit this instance
+			</td>
+		</tr>
+				<tr class="footer">
+			<td>
+				 <a href="javascript:if(confirm('Delete {= name} {= model->__get(idat)} ?')) document.location='{= delurl}';" style="vertical-align: text-bottom;"><img src="{= one:getOneInstance()->getUrl()}/vendor/images/icons/cross.png"></a>
+			</td>
+			<td colspan="3">
+				 Delete this instance
+			</td>
+		</tr>
+        {endif}
+
+        <tr class="footer">
+			<td align="center">
+				  <a href="{= listurl}"><i class="icon icon-list"></i></a>
+			</td>
+			<td colspan="3">
+				 See all instances of <b>{= name}</b>
+			</td>
+		</tr>
+
+	</table>
+{else}
+	<br/>[VIEW:TODO {= model->getSchemeName()}:detail id={= model->id}]
+{endif}
+
+{section LINKROW yy}
+	{set rid = yy->__get(rdat->getName())}
+    {set title = tgt . ' #' . rid}
+	{set deturl = joomla:route(stub . rid)}
+	<tr class="{= clss}" {if count(xxs)>1} style="display: none;"{endif}>
+		<td></td>
+		<td colspan=3>
+			 <a class="related" href="{= deturl}"><i class="icon icon-link"></i> {= title}</a>
+		</td>
+	</tr>
+{endsection}

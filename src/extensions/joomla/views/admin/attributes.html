@@ -1,0 +1,14 @@
+{set schemeName = joomla:getVar('scheme')}
+{set chosen = joomla:getVar('selected', '')}
+{if trim(schemeName) != ''}
+	{set oneScheme = one:getScheme(schemeName)}
+	{set attributes = oneScheme->getAttributes()}
+	{loop attributes attribute}
+		{set selected = ''}
+		{if attribute->getName() == chosen}
+			{set selected = ' selected="selected"'}
+		{endif}
+		<option value="{= attribute->getName()}"{= selected}>{= attribute->getName()}</option>
+	{endloop}
+	<option value="RAND()"{if 'RAND()' == chosen} selected="selected"{endif}>RAND()</option>
+{endif}

@@ -1,0 +1,10 @@
+{include label.html}{include info.html}{include error.html}
+<span class='OneWidget'>
+	<div class="OneWidgetBox">
+	{if trim( label ) != '' && !lblLast}<div class="LabelBox"><div style="clear: both;">{@ LABEL}</div><div></div>&nbsp;</div>{endif}
+	<div{if trim( label ) != '' && !lblLast} style="margin-left: 150px; position:relative;top:-22px;"{endif}><textarea id="{= id}" name="{= name}"{= events}{= params}>{= value}</textarea>{= required}</div>
+	{if trim( label ) != '' && lblLast}{@ LABEL}{endif}
+	</div>
+</span>
+{@ INFO}
+{@ ERROR}

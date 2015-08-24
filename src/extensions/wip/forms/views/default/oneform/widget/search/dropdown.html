@@ -1,0 +1,13 @@
+{include label.html}
+{set oriLabel = label}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<select id="{= id}" name="{= name}"{= params}{= events}>
+	{loop options optvalue optlabel}
+		{set selected = ''}
+		{if in_array( optvalue, value )}{set selected = ' selected="selected"'}{endif}
+		<option value="{= optvalue}"{= selected}>{= optlabel}</option>
+	{endloop}
+	</select>
+	{if trim( oriLabel ) != '' && lblLast}{set label = oriLabel}{@ LABEL}{endif}
+</span>

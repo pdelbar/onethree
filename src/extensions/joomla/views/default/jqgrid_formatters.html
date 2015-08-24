@@ -1,0 +1,219 @@
+	jQuery.extend(jQuery.fn.fmatter , {{
+	    tick : function(cellvalue, options, rowdata) {{
+			if (cellvalue == '1') return '<img src="images/icons/tick.png"/>';
+			return '';
+	    }}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+	    one_edit : function (cv, options, rowdata) {{
+	    	var cm = options['colModel'];
+	    	var icon = cm['icon'];
+		    var uri = "{= joomla:route('index.php?option=com_one&scheme=' . scheme->getName() . '&task=edit&view=edit', false)}{= joomla:putIdForJqgrid()}" + options['rowId'];
+		    if (icon) {{
+				return '<a href="' + uri + '"><img src="{= one:getVendorInstance()->getSitePath()}/' + icon + '.png"/></a>';
+		    }}
+		    else {{
+				return '<a href="' + uri + '">edit</a>';
+			}}
+	    }}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+	    one_detail : function (cv, options, rowdata) {{
+	    	var cm = options['colModel'];
+	    	var icon = cm['icon'];
+		    var uri = "{= joomla:route('index.php?option=com_one&task=detail&view=detail&scheme=' . scheme->getName(), false)}{= joomla:putIdForJqgrid()}" + options['rowId'];
+		    if (icon) {{
+				return '<a href="' + uri + '"><img src="{= one:getVendorInstance()->getSitePath()}/' + icon + '.png"/></a>';
+		    }}
+		    else {{
+				return '<a href="' + uri + '">detail</a>';
+			}}
+	    }}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+	    one_remove : function (cv, options, rowdata) {{
+	    	var cm = options['colModel'];
+	    	var icon = cm['icon'];
+		    var uri = "{= joomla:route('index.php?option=com_one&task=remove&scheme=' . scheme->getName(), false)}{= joomla:putIdForJqgrid()}" + options['rowId'];
+		    if (icon) {{
+				return '<a href="' + uri + '" onclick="if(!confirm(\'Are you sure you want to delete this item?\')) {{ return false; }}"><img src="{= one:getVendorInstance()->getSitePath()}/' + icon + '.png"/></a>';
+		    }}
+		    else {{
+				return '<a href="' + uri + '" onclick="if(!confirm(\'Are you sure you want to delete this item?\')) {{ return false; }}">remove</a>';
+			}}
+	    }}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+	    one_duplicate : function (cv, options, rowdata) {{
+			return '<a href="#" class="gridduplicate" name="' + options['rowId'] + '">duplicate</a>';
+	    }}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter, {{
+		checktick: function(cellvalue, options, rowdata){{
+
+			var checked = '';
+
+			if(cellvalue == 1){{
+				checked = 'checked = "checked" ';
+			}}
+
+			var checkbox = '<input type="checkbox" class="gridcheckbox" name="{= scheme->getName()}_' + options['rowId'] + '" ' + checked + '/>'
+			return checkbox;
+		}}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+		minuteFormatter : function(cellvalue, options, cellobject) {{
+			return cellvalue + " min.";
+		}}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter, {{
+		activateFormatter : function(cellvalue, options, cellobject){{
+			{if allowedit}
+
+				if(cellvalue == 1){{
+					var activestring = 'Deactiveer';
+					var activeclass = 'deactivate';
+				}}else{{
+					var activestring = 'Activeer';
+					var activeclass = 'activate';
+				}}
+
+				return '<a href="#" style="color: #3333aa;" class="activator ' + activeclass + '" name="' + options['rowId'] + '">' + activestring + '</a>';
+			{else}
+				if(cellvalue == 1){{
+					return 'Actief';
+				}}else{{
+					return 'Inactief';
+				}}
+			{endif}
+		}}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+		timeFormatter : function(cellvalue, options, cellobject) {{
+			if(cellvalue != null){{
+				return cellvalue.substring(0,5);
+			}}else{{
+				return '00:00';
+			}}
+		}}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+		dateFormatter : function(cellvalue, options, cellobject) {{
+			if(cellvalue != null){{
+				var date = cellvalue.substr(8,2) + '-';
+				date += cellvalue.substr(5,2) + '-';
+				date += cellvalue.substr(0,4);
+			}}else{{
+				var date = '00-00-0000';
+			}}
+			return date;
+		}}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+		datetimeFormatter : function(cellvalue, options, cellobject) {{
+			if(cellvalue != null){{
+				var date = cellvalue.substr(8,2) + '-';
+				date += cellvalue.substr(5,2) + '-';
+				date += cellvalue.substr(0,4) + ' ';
+				date += cellvalue.substr(11,2) + ':';
+				date += cellvalue.substr(14,2) + ':';
+				date += cellvalue.substr(17,2);
+			}}else{{
+				var date = '00-00-0000 00:00:00';
+			}}
+			return date;
+		}}
+	}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+		decimalFormatter : function(cellvalue, options, cellobject) {{
+			if(cellvalue != null){{
+				var decimal = FormatNumber(cellvalue, 2, false, false, ' ')
+			}}else{{
+				var decimal = 0;
+			}}
+			return decimal;
+		}}
+	}});
+
+	function FormatNumber(num,decimalNum,bolLeadingZero,bolParens,thousandSeperator)
+    /**********************************************************************
+      IN:
+        NUM - the number to format
+        decimalNum - the number of decimal places to format the number to
+        bolLeadingZero - true / false - display a leading zero for
+                        numbers between -1 and 1
+        bolParens - true / false - use parenthesis around negative numbers
+        // bolCommas - put commas as number separators.
+        thousandSeperator (used to be bolCommas) to select character as seperator
+
+      RETVAL:
+        The formatted number!
+     **********************************************************************/
+    {{
+            if (isNaN(parseInt(num))) return "0.00";
+
+      var tmpNum = num;
+      var iSign = num < 0 ? -1 : 1;			// Get sign of number
+
+      // Adjust number so only the specified number of numbers after the decimal point are shown.
+      tmpNum *= Math.pow(10,decimalNum);		// multiply to add number of decimals
+      tmpNum = Math.round(Math.abs(tmpNum))	// round at that level
+      tmpNum /= Math.pow(10,decimalNum);		// scale down again
+      tmpNum *= iSign;						// re-adjust for sign
+
+
+      // Create a string object to do our formatting on
+      var tmpNumStr = new String(tmpNum);
+
+      // See if we need to strip out the leading zero or not.
+      if (!thousandSeperator && num < 1 && num > -1 && num != 0)
+        if (num > 0)
+          tmpNumStr = tmpNumStr.substring(1,tmpNumStr.length);
+        else
+          tmpNumStr = "-" + tmpNumStr.substring(2,tmpNumStr.length);
+
+      // See if we need to put in the commas
+      if (thousandSeperator && (num >= 1000 || num <= -1000)) {{
+        var iStart = tmpNumStr.indexOf(".");
+        if (iStart < 0)
+          iStart = tmpNumStr.length;
+
+        iStart -= 3;
+        while (iStart >= 1) {{
+          tmpNumStr = tmpNumStr.substring(0,iStart) + thousandSeperator + tmpNumStr.substring(iStart,tmpNumStr.length)
+          iStart -= 3;
+        }}
+      }}
+
+      // See if we need to put in period and trailing zeroes (added PD21FEB07)
+      var iStart = tmpNumStr.indexOf(".");
+      if (iStart < 0)
+      {{
+        tmpNumStr += '.';
+        iStart = tmpNumStr.indexOf(".");
+      }}
+      i = iStart + 1 - tmpNumStr.length + decimalNum ;
+      while (i > 0)
+      {{
+        tmpNumStr += '0';
+        i--;
+      }}
+
+
+      // See if we need to use parenthesis
+      if (bolParens && num < 0)
+        tmpNumStr = "(" + tmpNumStr.substring(1,tmpNumStr.length) + ")";
+
+      return tmpNumStr;		// Return our formatted string!
+    }}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+        type="plugin"
+        group="system"
+        version="3.0"
+        method="upgrade">
+
+    <name>plg_one</name>
+    <author>Paul Delbar</author>
+    <creationDate>2015-08</creationDate>
+    <copyright>Copyright (C) 2015 Paul Delbar. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>paul.delbar@gmail.com</authorEmail>
+    <authorUrl>pauldelbar.com</authorUrl>
+    <version>Dawn</version>
+    <description>one|content is a rich content display and management component</description>
+
+    <files>
+        <filename plugin="one">one.php</filename>
+        <filename>index.html</filename>
+    </files>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="enableDebug" type="radio" description="Do you want to enable debug mode for one|content" label="Enable debug" default="0">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+
+</extension>
+

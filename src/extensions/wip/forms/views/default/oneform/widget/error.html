@@ -1,0 +1,9 @@
+{section ERROR}
+{set session = one:getSession()}
+{set errors = session->get('errors', 'OneFormErrors')}
+{if is_array(errors) && count(errors) > 0 && array_key_exists(id, errors) && excludeError == 0}
+	{set error = errors[id]}
+	{set wErrors = error['error']}
+	<span id="{= id}Error" class="OneError"><ul>{loop wErrors wError}<li>{script}{= wError}{endscript}</li>{endloop}</ul></span>
+{endif}
+{endsection}

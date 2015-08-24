@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="Multiple instances">
+        <message><![CDATA[Show a list of instances]]></message>
+    </layout>
+
+    <!--Shown underneath the menu type selector.-->
+    <fields name="request">
+        <fieldset name="request"
+                  addfieldpath="/components/com_one/fields">
+
+            <field name="intro" type="spacer" class="text"
+                   label="This menu type will execute a query returning a list of instances, and render this list using the selected view."
+                    />
+
+            <field name="controller"
+                   type="hidden"
+                   default="default"
+                    />
+            <field name="scheme" type="scheme"
+                   label="Scheme"
+                   required="true"
+                   edit="true"
+                   clear="false"
+                   description="Scheme to use for the current menu-item"
+                    />
+            <field name="task" type="text"
+                   label="Task"
+                   required="true"
+                   edit="true"
+                   clear="false"
+                   description="Task to use for the current menu-item"
+                    />
+            <field name="oview" type="text"
+                   label="View"
+                   required="false"
+                   edit="true"
+                   clear="false"
+                   description="View to use for the current menu-item"
+                    />
+            <field name="extro" type="spacer" class="text"
+                   label="Use the additional tabs to control the query and view parameters."
+                    />
+
+        </fieldset>
+    </fields>
+
+    <!-- Add fields to the parameters object for the layout. -->
+    <fields name="params" >
+        <fieldset
+                name="model"
+                label="Advanced"
+                addfieldpath="/components/com_one/fields">
+            <field name="intro1" type="spacer" class="text"
+                   label="Use these parameters to affect the selection, order and number of instances to view."
+                    />
+            <field name="filters"
+                   type="text"
+                   default=""
+                   label="Filters"
+                   description="Comma-separated list of filters to apply to the query" />
+            <field name="filterParameters"
+                   type="textarea" cols="60"  rows="6"
+                   label="Filter parameters"
+                   description="Parameters to pass to the filters" />
+            <field name="intro2" type="spacer" class="text"
+                   label="You can override the order set by the filter by specifying it here."
+                    />
+            <field name="order"
+                   type="text"
+                   label="Order by attribute ..."
+                   description="Set the attribute to order by" />
+            <field name="orderdirection" type="radio"
+                   label="Order direction ..."
+                   description="Set the order direction"
+                   default="asc">
+                <option value="asc">ascending</option>
+                <option value="desc">descending</option>
+            </field>
+
+            <field name="intro3" type="spacer" class="text"
+                   label="Finally, you can limit the amount of data fed into the view."
+                    />
+            <field name="count" type="text" default="" label="Number of instances to show" description=""/>
+            <field name="start" type="text" default="0" label="Starting from" description=""/>
+
+            <field name="extraParameters"
+                   type="textarea"
+                   rows="4" cols="60"
+                   default=""
+                   label="Extra request parameters ..."
+                   description="Set extra parameters to pass to the controller in INI format (key=value)"/>
+            <field name="parseContentPlugins"
+                   type="radio"
+                   label="Run content plugins ?"
+                   description="Should the content be parsed by content plugins?"
+                   class="btn-group"
+                   default="0">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </field>
+        </fieldset>
+
+
+    </fields>
+</metadata>

@@ -1,0 +1,20 @@
+{include label.html}{include info.html}{include error.html}
+{set oriLabel = label}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<span class="OneMultipleContainer">
+	{loop options optvalue optlabel}
+	<span class="OneMultipleItem">
+		{set checked = ''}
+		{if optvalue == value}{set checked = ' checked="checked"'}{endif}
+		{set rbID = oneform:mangle(id.optvalue)}
+		{if !lblLast}<label class="OneFieldLabel" for="{= rbID}">{= optlabel}</label>{endif}
+		<input type="radio" id="{= rbID}" name="{= name}" value="{= optvalue}"{= checked}{= params}{= events} />
+		{if lblLast}<label class="OneFieldLabel" for="{= rbID}">{= optlabel}</label>{endif}
+	</span>
+	{endloop}
+	</span>
+	{if trim( oriLabel ) != '' && lblLast}{set label = oriLabel}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

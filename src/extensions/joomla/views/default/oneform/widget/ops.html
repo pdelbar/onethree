@@ -1,0 +1,32 @@
+{section SHOWOPS}
+{if optype == 'text'}
+	{@ SHOWTEXTOP}
+{endif}
+{if optype == 'int'}
+	{@ SHOWINTOP}
+{endif}
+{endsection}
+
+{section SHOWTEXTOP}
+{set op = request:get( 'op__' . name . '__text' )}
+<select name="op__{= name}__text">
+	<option value="contains"{if op == 'contains'} selected="selected"{endif}>{@ searchform:CONTAINS}</option>
+	<option value="eq"{if op == 'eq'} selected="selected"{endif}>{@ searchform:EQUALS}</option>
+	<option value="begins"{if op == 'begins'} selected="selected"{endif}>{@ searchform:BEGINS_WITH}</option>
+	<option value="ends"{if op == 'ends'} selected="selected"{endif}>{@ searchform:ENDS_WITH}</option>
+	<!-- <option value="all">all</option>
+	<option value="any">any</option> -->
+</select>
+{endsection}
+
+{section SHOWINTOP}
+{set op = request:get( 'op__' . name . '__int' )}
+<select name="op__{= name}__int">
+	<option value="eq"{if op == 'eq'} selected="selected"{endif}>equals</option>
+	<option value="neq"{if op == 'neq'} selected="selected"{endif}>not equal</option>
+	<option value="gt"{if op == 'gt'} selected="selected"{endif}>greater than</option>
+	<option value="gte"{if op == 'gte'} selected="selected"{endif}>greater than or equal</option>
+	<option value="lt"{if op == 'lt'} selected="selected"{endif}>lesser than</option>
+	<option value="lte"{if op == 'lte'} selected="selected"{endif}>lesser than or equal</option>
+</select>
+{endsection}

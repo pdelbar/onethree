@@ -1,0 +1,15 @@
+{set schemeName = joomla:getVar('scheme')}
+{set chosen = joomla:getVar('selected', '')}
+{if trim(schemeName) != ''}
+	{set filters = one:repository('getFilterNames', schemeName)}
+{else}
+	{set filters = one:repository('getFilterNames')}
+{endif}
+<option value=""> --- </option>
+{loop filters filter}
+	{set selected = ''}
+	{if filter == chosen}
+		{set selected = ' selected="selected"'}
+	{endif}
+	<option value="{= filter}"{= selected}>{= filter}</option>
+{endloop}

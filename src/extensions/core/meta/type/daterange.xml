@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="daterange">
+	<attributes>
+		<attribute name="up" type="date" />
+		<attribute name="down" type="date" />
+	</attributes>
+</type>

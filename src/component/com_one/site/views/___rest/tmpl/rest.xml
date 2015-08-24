@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_ONE_REST">
+        <message><![CDATA[COM_ONE_REST_DESC]]></message>
+	</layout>
+
+	 <!--Shown underneath the menu type selector.-->
+	<fields name="request">
+		<fieldset name="request"
+			addfieldpath="/components/com_one/fields">
+            <field name="controller"
+                   type="hidden"
+                   default="rest"
+                    />
+		</fieldset>
+	</fields>
+
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params">
+
+        <fieldset name="advanced"
+                  addfieldpath="/components/com_one/fields">
+        </fieldset>
+
+
+	</fields>
+</metadata>

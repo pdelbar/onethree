@@ -1,0 +1,11 @@
+{include label.html}
+{set oriLabel = label}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	{loop options optvalue optlabel}
+		{set checked = ''}
+		{if in_array( optvalue, value )}{set checked = ' checked="checked"'}{endif}
+		<span><input id="{= id}__{= optvalue}" name="{= name}" type="checkbox" value="{= optvalue}"{= checked}><label for="{= id}__{= optvalue}" />{= optlabel}</label></span>
+	{endloop}
+	{if trim( oriLabel ) != '' && lblLast}{set label = oriLabel}{@ LABEL}{endif}
+</span>

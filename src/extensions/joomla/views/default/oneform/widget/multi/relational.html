@@ -1,0 +1,38 @@
+{include label.html}{include info.html}{include error.html}
+{set oriLabel = label}
+
+{if onEmpty == 'all'}
+	{set onEmpty = "setRelatedOptions( '" . scheme->getName() . "', '" . _link->getTarget() . "', '" . modelID . "', '" . id . "', '" . targetAttr . "', '%%' );"}
+{else}
+	{set onEmpty = "document.getElementById( 'f" . id . "' ).innerHTML = '';"}
+{endif}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+		<div>
+			<div>
+				SEARCH <input type="text" value="" onkeyup="if( this.value.length >= {= triggerOn} ) setRelatedOptions( '{= scheme->getName()}', '{= _link->getTarget()}', '{= modelID}', '{= id}', '{= targetAttr}', this.value ); if( this.value.length < {= triggerOn} ){= onEmpty}" /> (autocomplete){= required}
+			</div>
+			<div>
+				<div class="float: left;">
+					<select id="f{= id}" multiple="multiple" size="5">
+					</select>
+				</div>
+				<div class="float: left; text-align: center;">
+					<input id="add{= id}" type="button" value="ADD TO SELECTION &gt;" onclick="addChosenOptions( '{= id}' );" />
+					<input id="rem{= id}" style="float: right;" type="button" value="&lt; REMOVE FROM SELECTION" onclick="removeChosenOptions( '{= id}' );" />
+				</div>
+				<div class="float: left;">
+					<select id="t{= id}" multiple="multiple" size="5">
+						{loop options optvalue optlabel}
+							<option value="{= optvalue}">{= optlabel}</option>
+						{endloop}
+					</select>
+					<input type="hidden" id="{= id}" name="{= name}" value="{= relatedIDs}" />
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">{= onEmpty}</script>
+	{if trim( oriLabel ) != '' && lblLast}{set label = oriLabel}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

@@ -1,0 +1,5 @@
+{if is_array(model)}
+	{= one:view(model,'list')}
+{else}
+	{= one:view(model,'detail')}
+{endif}

@@ -1,0 +1,12 @@
+<table style="border: 1px solid #555;">
+	<thead>
+		<th colspan="2">{= model->getScheme()->title()}</th>
+	</thead>
+	<tbody>{loop gridData att data}
+		<tr>
+			<td style="border: 1px solid #555; padding: 3px; min-width: 90px;">{= att}</td>
+			<td style="border: 1px solid #555; padding: 3px; min-width: 90px;">{= data}</td>
+		</tr>
+		{endloop}
+	</tbody>
+</table>

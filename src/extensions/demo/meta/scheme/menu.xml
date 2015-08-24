@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scheme name="extension">
+	<info>
+		<title>Joomla menu item</title>
+        <group>Joomla</group>
+    </info>
+
+	<attributes>
+		<attribute name="id" type="int" identity="true" />
+		<attribute name="parent_id" type="int" />
+        <attribute name="component_id" type="int" />
+        <attribute name="title" type="string" />
+        <attribute name="alias" type="string" />
+        <attribute name="published" type="int" />
+	</attributes>
+
+    <relations>
+        <relation name="submenus" />
+        <relation name="menu_extension" />
+    </relations>
+
+    <connection name="joomla" table="#__menu" filter="site" />
+</scheme>

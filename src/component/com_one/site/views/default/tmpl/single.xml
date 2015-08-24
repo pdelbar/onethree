@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="Single instance">
+        <message><![CDATA[Show a single instance]]></message>
+	</layout>
+
+	 <!--Shown underneath the menu type selector.-->
+	<fields name="request">
+		<fieldset name="request"
+			addfieldpath="/components/com_one/fields">
+            <field name="controller"
+                   type="hidden"
+                   default="default"
+                    />
+            <field name="task"
+                   type="hidden"
+                   default="detail"
+                    />
+            <field name="scheme" type="scheme"
+                   label="Scheme"
+                   required="true"
+                   edit="true"
+                   clear="false"
+                   description="Scheme to use for the current menu-item"
+                    />
+            <field name="oview" type="text"
+                   label="View"
+                   required="false"
+                   edit="true"
+                   clear="false"
+                   description="View to use for the current menu-item"
+                    />
+            <field name="id" type="text"
+                   label="ID"
+                   required="true"
+                   edit="true"
+                   clear="false"
+                   description="ID to use"
+                    />
+
+		</fieldset>
+	</fields>
+
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params">
+
+        <fieldset name="view"
+                  addfieldpath="/components/com_one/fields"
+                  label="Advanced">
+
+            <field name="extraParameters"
+                   type="textarea"
+                   rows="4" cols="60"
+                   default=""
+                   label="Extra request parameters ..."
+                   description="Set extra parameters to pass to the controller in INI format (key=value)"/>
+            <field name="parseContentPlugins"
+                   type="radio"
+                   label="Run content plugins ?"
+                   description="Should the content be parsed by content plugins?"
+                   class="btn-group"
+                   default="0">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </field>
+        </fieldset>
+
+
+	</fields>
+</metadata>

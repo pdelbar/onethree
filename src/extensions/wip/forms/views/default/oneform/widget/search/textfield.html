@@ -1,0 +1,7 @@
+{include label.html}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<input type="{= totf}" id="{= id}" name="{= name}" value="{= value}"{= events}{= params} />
+	{if op}{= op->render()}{endif}
+	{if trim( label ) != '' && lblLast}{@ LABEL}{endif}
+</span>

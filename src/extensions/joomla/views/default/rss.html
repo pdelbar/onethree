@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+	<title>{= str_replace( '&', '&amp;', str_replace( '&amp;', '&', htmlentities( strip_tags( joomla:sitename() ) ) ) )}{if scheme->title}{= str_replace( '&', '&amp;', str_replace( '&amp;', '&', htmlentities( strip_tags( ': ' . scheme->title ) ) ) )}{endif}</title>
+	{if scheme->description}<description>{= str_replace( '&', '&amp;', str_replace( '&amp;', '&', htmlentities( strip_tags( scheme->description ) ) ) )}</description>{endif}
+	<link>{= joomla:livesite()}</link>
+	<lastBuildDate>{= date( 'Y-m-d H:i:s' )}</lastBuildDate>
+	<ttl>60</ttl>
+	<language>{= joomla:getLanguage()}</language>
+	{loop model m}<item>
+		{if m->pubDate}<pubDate>{= m->pubDate}</pubDate>{endif}
+		{if m->title}<title>{= htmlentities( strip_tags( m->title ) )}</title>{endif}
+		<link>{= joomla:route( joomla:livesite() . 'index.php?option=com_one&amp;scheme=' . scheme->getName()  . '&amp;task=detail&amp;view=detail&amp;id=' . m->id . '&amp;lang=' . joomla:getLanguage() )}</link>
+		{if m->description}<description>{= htmlentities( strip_tags( m->description ) )}</description>{endif}
+	</item>
+{endloop}</channel>
+</rss>

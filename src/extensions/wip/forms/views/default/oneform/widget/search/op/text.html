@@ -1,0 +1,6 @@
+<select name="op__{= for}__text">
+	<option value="contains"{if value == 'contains'} selected="selected"{endif}>{@ searchform:CONTAINS}</option>
+	<option value="eq"{if value == 'eq'} selected="selected"{endif}>{@ searchform:EQUALS}</option>
+	<option value="begins"{if value == 'begins'} selected="selected"{endif}>{@ searchform:BEGINS_WITH}</option>
+	<option value="ends"{if value == 'ends'} selected="selected"{endif}>{@ searchform:ENDS_WITH}</option>
+</select>

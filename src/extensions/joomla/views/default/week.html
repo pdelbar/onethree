@@ -1,0 +1,67 @@
+{section DAYBOX}
+    <td {if count(events)}class="occupied" {endif} {if (day == date('d')) && (mo == date('m')) && (yr == date('Y'))} class="today"{endif}>
+        <div class="daynr">
+          {if count(events)}
+            {if 0}<a href="index.php?option=com_one&task=day&day={= day}&month={= mo}&year={= yr}&scheme=event">{endif}
+            <b>{= day}</b>
+            {if 0}</a>{endif}
+      {else}
+        {= day}
+         {endif}
+    </div>
+        {@ DAY}
+    </td>
+{endsection}
+
+
+{section DAY}
+  {loop events event}
+      <div class="event">
+      	<a href="index.php?option=com_one&scheme=event&task=detail&view=detail&id={= event->id}">
+          {= one:view(event,'entry_month')}
+        </a>
+      </div>
+  {endloop}
+{endsection}
+
+{section months}
+  {set m=1}{while m<13}<option value="{= m}" {if m==mo}selected{endif}>{= m}</option>{set m=m+1}{endwhile}
+{endsection}
+{section years}
+  {set y=2008}{while y<date('Y')+3}<option value="{= y}" {if y==yr}selected{endif}>{= y}</option>{set y=y+1}{endwhile}
+{endsection}
+
+{set mo=request:get('month')}{if !mo}{set mo=date('m')}{endif}
+{set yr=request:get('year')}{if !yr}{set yr=date('Y')}{endif}
+
+<h2 class="contentheading">Kalender</h2>
+
+{if count( model ) > 0}
+
+ 	{do setlocale( LC_ALL, 'nl_NL' )}
+
+  	{set curwhen=''}
+  	<div>
+  		{loop model ev}
+  		<div class="calweek_when">
+	  		{set when = strftime( '%A, %d %B %Y',strtotime( one:getVar( ev, dateAttribute ) ) )}
+	  		{if when != curwhen}
+  				<span style="font-weight: bold; color: #900;">{= when}</span>
+  				{set curwhen = when}
+			{else}
+			&nbsp;{endif}
+  		</div>
+  		<div class="calweek_event">
+  			<a href="{= joomla:route( 'index.php?option=com_one&scheme=' . scheme . '&task=detail&view=detail&id=' . ev->id, false )}">{if trim( one:getVar( ev, titleAttribute ) ) != ''}{= trim( one:getVar( ev, titleAttribute ) )}{else}Event{endif}</a>
+  			<br />
+			{if trim( one:getVar( ev, timeAttribute ) ) != ''}
+			{= trim( one:getVar( ev, timeAttribute ) )}<br />
+			{endif}
+  			{= one:view( ev, 'short' )}
+  		</div>
+    	{endloop}
+  	</div>
+{else}
+	In deze week zijn er geen activiteiten.
+{endif}
+

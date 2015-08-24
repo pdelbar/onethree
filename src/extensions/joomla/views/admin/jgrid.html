@@ -1,0 +1,170 @@
+<form name="oneForm" id="oneForm" class="form-inline" action="index.php?option=com_one" method="post">
+    <table class="table table-striped" id="oneList">
+
+
+    <thead>
+        {if count( filters ) > 0}
+            <tr>
+                <th width="20">
+                    <button type="button" class="btn" onclick="jQuery('#oneForm').submit();" /><i class="icon-filter"></i></button>
+                </th>
+                <th width="20">
+                    &nbsp;
+                </th>
+                {loop columns column}
+                    <th class="title" nowrap="nowrap" style="text-align: left;">
+                        {if array_key_exists( column->name, filters)}
+                            {if filters[ column->name ][ 'type' ] == 'text'}
+                                <input type="text" id="s{= column->name}" name="s{= column->name}" value="{= filters[ column->name ][ 'value' ]}" onblur="jQuery('#task' ).value='list';jQuery('#start' ).value='1'; jQuery('#oneForm' ).submit();" /> 
+                            {endif}
+                            {if filters[ column->name ][ 'type' ] == 'dropdown'}
+                                <select id="s{= column->name}" name="s{= column->name}" onchange="jQuery('#task' ).value='list';jQuery('#start' ).value='1'; jQuery('#oneForm' ).submit();">
+                                {set filterOptions = filters[ column->name ][ 'options' ]}
+                                <option value=""> -- </option>
+                                {loop filterOptions optKey optVal}
+                                    <option value="{= optKey}"{if trim( filters[ column->name ][ 'value' ] ) != '' && trim( filters[ column->name ][ 'value' ] ) == optKey} selected="selected"{endif}>{= optVal}</option>
+                                {endloop}
+                                </select>
+                            {endif}
+                        {endif}
+                        {if filters[column->name]['type'] == 'daterange'}
+                            <label for="s{= column->name}Start">From </label>
+                            <input type="text" id="s{= column->name}Start" name="s{= column->name}Start" value="{= filters[ column->name ][ 'value' ][0]}" />
+                            <label for="s{= column->name}End">to </label>
+                            <input type="text" id="s{= column->name}End" name="s{= column->name}End" value="{= filters[ column->name ][ 'value' ][1]}" />
+                        {endif}
+                    </th>
+                {endloop}
+            </tr>
+        {endif}
+        <tr>
+            <th width="20"> # </th>
+            <th width="20"><input type="checkbox" id="checkAllIdsCB" onclick="oneCheckAll( this.checked );" /></th>
+            {loop columns column}
+                <th class="title" nowrap="nowrap">
+                    {if column->name}
+                        <a href="#" onclick="jQuery('#task').value='jgrid'; jQuery('#sortorder' ).value = '{= column->name}'; jQuery('#sortorderDir' ).value = '{if strtolower( sortorderDir ) == 'asc'}desc{else}asc{endif}'; jQuery('#oneForm' ).submit();">
+                            {= column->label}
+                            {if column->name == sortorder}
+                                {if sortorderDir == 'asc'} <i class="icon-arrow-down-3"></i>{else}  <i class="icon-arrow-up-3"></i>{endif}
+                            {endif}
+                        </a>
+                    {else}
+                        {= column->label}
+                    {endif}
+                </th>
+            {endloop}
+        </tr>
+    </thead>
+
+    <tbody>
+        {set ids = ""}
+        {loop model m}
+            {set ids = ids . ',"' . one:getIdentityValue( m ) . '"'}
+            <tr>
+                <td align="center">
+                    <a href="index.php?option=com_one&scheme={= scheme->getName()}&view=edit&task=edit&id={= one:getIdentityValue( m )}">{= counter}</a>
+                </td>
+                <td>
+                    <input type="checkbox" id="id{= one:getIdentityValue( m )}" name="id[{= one:getIdentityValue( m )}]" value="{= one:getIdentityValue( m )}" onclick="uncheckIfNotAllChecked( this.checked );" />
+                </td>
+                {loop columns column}
+                    {if trim( column->nScript ) != ''}
+                        {set shown = one:parseModelScript( m, column->nScript )}
+                    {else}
+                        {set shown = one:getVar( m, column->name )}
+                    {endif}
+                    <td class="{= column->class}">
+                        {if column->linkdetail == 1}
+                            <a href="index.php?option=com_one&scheme={= scheme->getName()}&view=edit&task=edit&id={= one:getIdentityValue( m )}">{= shown}</a>
+                        {else}
+                            {= shown}
+                        {endif}
+                    </td>
+                {endloop}
+            </tr>
+            {set counter = ( counter + 1 )}
+        {endloop}
+    </tbody>
+
+    {if rowcount > limit}
+        <tfoot>
+            <tr>
+                <td colspan="{= ( count( columns ) + 2 )}">
+                    {if limit > 0}<span>Page</span>
+                    {if pages > 10}
+                        {if ( pages - start ) < 0}
+                            {set i = 1}
+                            {set till = 10}
+                        {else}
+                            {if ( pages - 5 ) < start}
+                                {set i = ( pages - 10 )}
+                                {set till = pages}
+                            {else}
+                                {if start <= 5}
+                                    {set i = 1}
+                                    {set till = 10}
+                                {else}
+                                    {set i = ( start - 5 )}
+                                    {set till = ( start + 5 )}
+                                {endif}
+                            {endif}
+                        {endif}
+                    {else}
+                        {set i = 1}
+                        {set till = pages}
+                    {endif}
+                    {if start > 1}
+                    <a href="#" title="First page" onclick="jQuery('#task' ).value='list';jQuery('#view' ).value='jgrid';jQuery('#start' ).value = 1; jQuery('#oneForm' ).submit();">First</a> <a href="#" title="Previous page" onclick="jQuery('#start' ).value = {= ( start - 1 )}; jQuery('#oneForm' ).submit();">Previous</a>
+                    {endif}
+                    {while i <= till}
+                    {if i != start}
+                    <a href="#" title="Page {= i}" onclick="jQuery('#task' ).value='list';jQuery('#view' ).value='jgrid';jQuery('#start' ).value = {= i}; jQuery('#oneForm' ).submit();">{= i}</a>
+                    {else}{= i}{endif}
+                    {set i = i + 1}{endwhile}
+                    {if start < pages}
+                    <a href="#" title="Next page" onclick="jQuery('#task' ).value='list';jQuery('#view' ).value='jgrid';jQuery('#start' ).value = {= ( start + 1 )}; jQuery('#oneForm' ).submit();">Next</a> <a href="#" title="Last page" onclick="jQuery('#start' ).value = {= pages}; jQuery('#oneForm' ).submit();">Last</a>
+                    {endif}
+                    |
+                    {endif}<span>Items per page</span>
+                    <select id="limit_picker" name="limit_picker" onchange="jQuery('#task' ).value='list';jQuery('#view' ).value='jgrid';jQuery('#limit' ).value = this.value; jQuery('#oneForm' ).submit();">
+                        <option value="5"{if limit == 5} selected="selected"{endif}>5</option>
+                        <option value="10"{if limit == 10} selected="selected"{endif}>10</option>
+                        <option value="20"{if limit == 20} selected="selected"{endif}>20</option>
+                        <option value="50"{if limit == 50} selected="selected"{endif}>50</option>
+                        <option value="100"{if limit == 100} selected="selected"{endif}>100</option>
+                        <option value="0"{if limit == 0} selected="selected"{endif}>All</option>
+                    </select>
+                </td>
+            </tr>
+        </tfoot>
+    {endif}
+</table>
+
+<input type="hidden" id="scheme" name="scheme" value="{= scheme->getName()}" />
+<input type="hidden" id="task" name="task" value="list" />
+<input type="hidden" id="view" name="view" value="browse" />
+<input type="hidden" id="type" name="type" value="jgrid" />
+<input type="hidden" id="start" name="start" value="{= start}" />
+<input type="hidden" id="limit" name="limit" value="{= limit}" />
+<input type="hidden" id="sortorder" name="sortorder" value="{= sortorder}" />
+<input type="hidden" id="sortorderDir" name="sortorderDir" value="{= sortorderDir}" />
+</form>
+
+<script type="text/javascript">
+function oneCheckAll( isChecked )
+{{
+    var ids = new Array( {= substr( ids, 1 )} );
+    for(var i=0,len=ids.length; value=ids[i], i<len; i++)
+    {{
+        var element = jQuery('#id' + value );
+        element.checked = isChecked;
+    }}
+}}
+
+function uncheckIfNotAllChecked( isChecked )
+{{
+    if( !isChecked )
+        jQuery('#checkAllIdsCB' ).checked = false;
+}}
+</script>

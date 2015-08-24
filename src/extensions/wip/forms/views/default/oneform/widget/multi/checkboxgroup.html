@@ -1,0 +1,21 @@
+{include label.html}{include info.html}{include error.html}
+{set oriLabel = label}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	{loop options optvalue optlabel}
+		{set checked = ''}
+		{if is_array( value )}
+			{if in_array( optvalue, value )}{set checked = ' checked="checked"'}{endif}
+		{else}
+			{if optvalue == value}{set checked = ' checked="checked"'}{endif}
+		{endif}
+		<span class='OneWidgetCheckbox'>
+			{if !lblLast}{@ VALLABEL}{endif}
+			<input id="{= id}Opt{= optvalue}" name="{= name}[]" type="checkbox" value="{= optvalue}"{= checked}>
+			{if lblLast}{@ VALLABEL}{endif}
+		</span>
+	{endloop}
+	{if trim( oriLabel ) != '' && lblLast}{set label = oriLabel}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

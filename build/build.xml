@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="one" default="dist">
+
+    <property file = "build.ini" />
+
+    <target name="dist">
+        <echo msg="Welcome to the one|content phing build script!"/>
+        <echo msg="----------------------------------------------"/>
+        <echo msg="Available targets are:"/>
+        <echo msg="  plg_one      the one|content system plugin"/>
+        <echo msg="  core         the extension containing the core one|content library "/>
+        <echo msg="  joomla       the extension containing the joomla-specific library"/>
+        <echo msg="  com_one      the main component"/>
+        <echo msg=""/>
+        <echo msg="  demo         the extension containing a few demo definitions"/>
+    </target>
+
+    <!-- ****************************************************** -->
+
+    <target name="extensions" depends="core,joomla,script,demo"/>
+
+    <target name="core">
+        <phingcall target="makeExtension">
+            <property name="extension" value="core" override="true"/>
+            <property name="folder" value="lib" override="true"/>
+        </phingcall>
+    </target>
+
+    <target name="joomla">
+        <phingcall target="makeExtension">
+            <property name="extension" value="joomla" override="true"/>
+            <property name="folder" value="lib" override="true"/>
+        </phingcall>
+    </target>
+
+    <target name="script">
+        <phingcall target="makeExtension">
+            <property name="extension" value="script" override="true"/>
+            <property name="folder" value="lib" override="true"/>
+        </phingcall>
+    </target>
+
+    <target name="demo">
+        <phingcall target="makeExtension">
+            <property name="extension" value="demo" override="true"/>
+            <property name="folder" value="custom" override="true"/>
+        </phingcall>
+    </target>
+
+    <!-- ****************************************************** -->
+
+    <target name="makeExtensionManifest">
+        <exec command="/usr/bin/php scripts/createExtensionManifest.php ${root} ${folder} ${extension} ${release}"
+              output="./work/${extension}.xml" escape="false" dir="."/>
+    </target>
+
+    <!-- ****************************************************** -->
+    <!--
+        makeExtension
+
+        Create pkg_one_extension_EXTENSION.zip using ./work folder
+    -->
+    <!-- ****************************************************** -->
+
+    <target name="makeExtension">
+        <echo msg="--- Cleaning up build directory"/>
+        <delete file="pkg_one_extension_${extension}.zip"/>
+        <delete dir="./work"/>
+
+        <echo msg="--- Starting to build the one_demo extension installer package"/>
+        <mkdir dir="./work"/>
+
+        <phingcall target="gatherFiles">
+            <property name="sourceLocation" value="../src/extensions/${extension}" override="true"/>
+        </phingcall>
+
+
+        <echo msg="--- Generating the manifest"/>
+        <phingcall target="makeExtensionManifest"/>
+
+        <phingcall target="stripWIP"/>
+
+        <echo msg="--- Creating archive"/>
+        <zip destfile="./pkg_one_extension_${extension}_${release}.zip">
+            <fileset dir="./work">
+                <include name="**/**"/>
+            </fileset>
+        </zip>
+    </target>
+
+    <!-- ****************************************************** -->
+
+    <target name="com_one">
+        <echo msg="--- Cleaning up build directory"/>
+        <delete file="pkg_one_component_${release}.zip"/>
+        <delete dir="./work"/>
+
+        <echo msg="--- Starting to build the com_one component installer package"/>
+        <mkdir dir="./work"/>
+
+        <phingcall target="gatherFiles">
+            <property name="sourceLocation" value="../src/component/com_one" override="true"/>
+        </phingcall>
+
+        <phingcall target="stripWIP"/>
+
+        <echo msg="--- Creating archive"/>
+        <zip destfile="./pkg_one_component_${release}.zip">
+            <fileset dir="./work">
+                <include name="**/**"/>
+            </fileset>
+        </zip>
+    </target>
+
+    <!-- ****************************************************** -->
+
+
+    <target name="plg_one">
+        <echo msg="--- Cleaning up build directory"/>
+        <delete file="pkg_one_plugin_system_${release}.zip"/>
+        <delete dir="./work"/>
+
+        <echo msg="--- Starting to build the plg_one plugin installer package"/>
+        <mkdir dir="./work"/>
+
+        <phingcall target="gatherFiles">
+            <property name="sourceLocation" value="../src/plugin/plg_one" override="true"/>
+        </phingcall>
+
+        <phingcall target="stripWIP"/>
+
+        <echo msg="--- Creating archive"/>
+        <zip destfile="./pkg_one_plugin_system_${release}.zip">
+            <fileset dir="./work">
+                <include name="**/**"/>
+            </fileset>
+        </zip>
+    </target>
+
+    <!-- ****************************************************** -->
+
+    <target name="stripWIP">
+        <echo msg="--- Removing unnecessary files from the package"/>
+        <exec command="find . -name '*.md' -type f -delete" logoutput="true" dir="./work"/>
+        <exec command="find . -name '___*' -delete" logoutput="true" dir="./work"/>
+    </target>
+
+
+    <target name="gatherFiles">
+        <echo msg="--- Gathering files"/>
+        <copy todir="./work">
+            <filterchain>
+                <replaceregexp>
+                    <regexp
+                            pattern="ONEDISCLAIMER"
+                            replace="one|content for Joomla! 3.x (C) Paul Delbar 2015. Content is everything. Everything is content. "
+                            ignoreCase="false"/>
+                </replaceregexp>
+            </filterchain>
+            <fileset dir="${sourceLocation}"/>
+        </copy>
+    </target>
+
+</project>

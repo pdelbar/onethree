@@ -1,0 +1,28 @@
+{set currentGroup="xxx"}
+
+<div class="accordion" id="extensionAccordion">
+    <div class="accordion-group">
+        {loop model extension}
+            {if extension->type != currentGroup}
+                {if currentGroup != "xxx"}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                {endif}
+                {set currentGroup = extension->type}
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#extensionAccordion" href="#collapse{= ucfirst(currentGroup)}">
+                        {= ucfirst(currentGroup)}
+                    </a>
+                </div>
+
+                <div id="collapse{= ucfirst(currentGroup)}" class="accordion-body collapse">
+                    <div class="accordion-inner">
+            {endif}
+            {= one:view(extension,'lig')}
+        {endloop}
+                    </div>
+                </div>
+    </div>
+</div>

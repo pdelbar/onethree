@@ -1,0 +1,208 @@
+{set vendor = one:getVendorInstance()}
+{do vendor->loadStyle(joomla:livesite() . '/plugins/system/one/vendor/jquery/datepicker/css/datepicker.css', 'head', 200)}
+{do vendor->loadScript(joomla:livesite() . '/plugins/system/one/vendor/jquery/datepicker/js/datepicker.js', 'head', 300)}
+
+{if scheme}
+	{set meta = jqgrid:init(scheme->getName())}
+	{set headers=meta[0]}
+	{set cols=meta[1]}
+
+	{set params=meta[2]}
+	{set header=params['header']}
+	{set tag = "_".scheme->getName()}
+
+	<table id="list{= tag}"></table>
+	<div id="pager{= tag}"></div>
+	<form id="list{= tag}Form" target="_blank">
+		<input type="hidden" id="list{= tag}FormData" name="listFormData" value="" />
+		<input type="hidden" id="list{= tag}FormDataView" name="listFormDataView" value="" />
+	</form>
+
+	<script type="text/javascript">
+	var pickDate = function(el) {{
+		jQuery(el).datepicker({{
+			dateFormat:{if params['datepickFormat']}'{= params['datepickFormat']}'{else}'yy-mm-dd'{endif}, 
+			onSelect: function(dateStr){{jQuery("#list{= tag}")[0].triggerToolbar();}}}});
+	}}
+	
+	var pickDateRange = function(el){{
+		
+		
+		jQuery(el).DatePicker({{
+			date: '{= date("Y-m-d")}',
+			format: 'Y-m-d',
+			mode: 'range',
+			calenders: 2,
+			onChange: function(formatted, data){{
+				
+				var range = formatted[0];
+				
+				if(formatted[0] != formatted[1]){{
+					range += ':' + formatted[1];
+				}}
+				
+				jQuery(el).val(range);
+				jQuery("#list{= tag}")[0].triggerToolbar();
+			}}
+		}});
+	}}
+
+	jQuery("#list{= tag}").jqGrid({{
+			url:'index.php?option=com_one&scheme={= scheme->getName()}&task=jqgrid{if params['filter']}&query={= params['filter']}{endif}',
+			datatype: "json",
+			colNames:{= json_encode(headers)},
+			colModel: {set cols = meta[1]}{= jqgrid:encodeCols(cols)},
+			rowNum:20,
+			rowList: [5, 10, 20, 50, 100, "All"],
+			rownumbers: true,
+			height: 400,
+			pager: '#pager{= tag}',
+			viewrecords: true,
+			{if params['sortname']} sortname:  '{= params['sortname']}' ,{endif}
+			{if params['sortorder']} sortorder:  '{= params['sortorder']}' ,{endif}
+			{if params['group']}
+				grouping: true,
+				groupingView : {{
+					groupField : [ '{= params['groupBy']}' ],
+					groupColumnShow : [true],
+					{if params['groupText']} groupText: [ '{= params['groupText']}' ],{endif}
+					{if params['groupCollapse']} groupCollapse: true,{endif}
+					groupOrder: ['asc'],
+					groupDataSorted: true
+					}},
+			{endif}
+			cellEdit: true,
+			cellsubmit: 'remote',
+			cellurl:'index.php?option=com_one&scheme={= scheme->getName()}&task=ajaxupdate',
+			caption: "{= header}" ,
+			height: "100%",
+			gridComplete: function(){{
+							jQuery('.gridcheckbox').change(function(){{
+								var name = jQuery(this).attr('name');
+								var fields = name.split('_');
+
+								var theme = fields[0];
+								var aid = fields[1];
+
+								var checked = 0;
+
+								var parent = jQuery(this).parent().attr('aria-describedby');
+								fields = parent.split('_');
+
+								var colname = fields[fields.length - 1];
+
+								if(jQuery(this).attr('checked') == true){{
+									checked = 1;
+								}}
+
+								jQuery.ajax({{
+									url: "index.php?option=com_one&scheme={= scheme->getName()}&task=ajaxupdate&id=" + aid ,
+									type: 'POST',
+									dataType: 'json',
+									data: (function(){{
+										var data = {};
+										data[colname] = checked;
+										return data;
+									}})()
+								}});
+
+							}});
+
+							jQuery('.gridduplicate').click(function(event){{
+								event.preventDefault();
+								var aid = jQuery(this).attr('name');
+
+								jQuery.ajax({{
+									url: "index.php?option=com_one&scheme={= scheme->getName()}&task=ajaxduplicate&id=" + aid ,
+									type: 'POST',
+									dataType: 'json',
+									error: function(jqXHR, textStatus, errorThrown){{
+										alert('Error: Could not duplicate row ' + aid);
+									}},
+									success:function(){{
+										jQuery("#list{= tag}").trigger('reloadGrid');
+									}}
+								}});
+
+							}});
+
+				}},
+				serializeGridData: function(data) {{
+					var dates = [];
+					{loop columns column}{set tmp = json_decode(column)}{if trim(tmp->formatter) == 'dateFormatter'}
+					dates["{= tmp->name}"] = true;
+					{endif}{endloop}
+					if(data['filters']) {{
+						var filters = jQuery.parseJSON(data['filters']);
+						for(var i in filters.rules) {{
+							if(dates[filters.rules[i].field]) {{
+								var parts = filters.rules[i].data.split(/[-_\/\.]/);
+								if(parts[0].length != 4) {{ // prevent from flipping the date again
+									if(3 == parts.length) {{
+										 filters.rules[i].data = parts[2]+"-"+parts[1]+"-"+parts[0];
+									}}
+									else if(2 == parts.length) {{
+										 filters.rules[i].data = parts[1]+"-"+parts[0];
+									}}
+								}}
+							}}
+						}}
+
+						filters = jQuery.serializeJSON(filters);
+						data['filters'] = filters;
+					}}
+
+					if(typeof data.rows === "string") {{  // "ALL"
+			            data.rows = 0;  // or -1 if your server
+			        }}
+			        if(isNaN(data.page)) {{ // fix NaN in page for rows="ALL"
+			            data.page = 1;
+			        }}
+
+					return data;
+				}}
+		}});
+	jQuery("#list{= tag}").jqGrid('navGrid','#pager{= tag}', {{
+								edit:    false,
+								add:     false,
+								del:     false
+							}} );
+	jQuery("#list{= tag}").jqGrid('filterToolbar',{{stringResult: true, searchOnEnter : false }});
+
+	{include jqgrid_formatters.html}
+
+	{set exportTypes = array('Csv', 'Excel', 'Pdf')}
+	{loop exportTypes exportType}
+	{if params['export'.exportType]}
+	jQuery("#list{= tag}").jqGrid().navButtonAdd('#pager{= tag}',{{
+        caption:"Export to {= ucfirst(strtolower(exportType))}",
+        buttonicon:"ui-icon-save",
+        onClickButton: function(){{
+          export{= ucfirst(strtolower(exportType))}();
+        }}
+    }});
+
+	function export{= ucfirst(strtolower(exportType))}()
+    {{
+    	jQuery('#list{= tag}FormData').val(jQuery('#list{= tag}').getDataIDs());
+    	jQuery('#list{= tag}FormDataView').val('jq{= strtolower(exportType)}');
+    	jQuery('#list{= tag}Form').attr('method', 'post');
+    	jQuery('#list{= tag}Form').attr('action', '{= joomla:route('index.php?option=com_one&scheme='.scheme->getName().'&task=jqexport&type='.strtolower(exportType), 0)}');
+    	jQuery('#list{= tag}Form').submit();
+    }}
+	{endif}
+	{endloop}
+
+	{if params['add'] == "add"}
+	jQuery("#list{= tag}").jqGrid().navButtonAdd('#pager{= tag}',{{
+        caption:"Add",
+        buttonicon:"ui-icon-sve",
+        onClickButton: function(){{
+          window.location = "{= joomla:route('index.php?option=com_one&scheme='.scheme->getName().'&task=edit&view=edit&id=', 0)}";
+        }}
+    }});
+	{endif}
+</script>
+
+{endif}
+

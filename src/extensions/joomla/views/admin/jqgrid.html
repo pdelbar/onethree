@@ -1,0 +1,83 @@
+	{set meta = jqgrid:init(scheme->getName())}
+	{set headers=meta[0]}
+	{set cols=meta[1]}
+
+	{set params=meta[2]}
+	{set header=params['header']}
+	{set tag = "_".scheme}
+
+	<table id="list{= tag}"></table>
+	<div id="pager{= tag}"></div>
+
+	<script type="text/javascript">
+
+	var pickDate = function(el) {{
+		jQuery(el).datepicker({{dateFormat:'yy-mm-dd', onSelect: function(dateStr){{jQuery("#list{= tag}")[0].triggerToolbar();}}}});
+	}}
+
+	jQuery("#list{= tag}").jqGrid({{
+			url:'index.php?option=com_one&scheme={= scheme->getName()}&task=jqgrid',
+			datatype: "json",
+			colNames:{= json_encode(headers)},
+			colModel:[
+			          {set cols = meta[1]}
+			          {set first = 1}
+			          {loop cols col}
+				          	{if !first},{endif}
+				          	{= jqgrid:myjson(col)}
+				          	{set first=0}
+				  		{endloop}
+			  		 ],
+			rowNum:20,
+			rowList:[20,50],
+			height: 400,
+			pager: '#pager{= tag}',
+			viewrecords: true,
+			{if params['sortname']} sortname:  '{= params['sortname']}' ,{endif}
+			{if params['sortorder']} sortorder:  '{= params['sortorder']}' ,{endif}
+			{if params['group']}
+				grouping: true,
+				groupingView : {{
+					groupField : [ '{= params['groupBy']}' ],
+					groupColumnShow : [true],
+					{if params['groupText']} groupText: [ '{= params['groupText']}' ],{endif}
+					{if params['groupCollapse']} groupCollapse: true,{endif}
+					groupOrder: ['asc'],
+					groupDataSorted: true
+					}},
+			{endif}
+			cellEdit: true,
+			cellsubmit: 'remote',
+			cellurl:'index.php?option=com_one&scheme={= scheme->getName()}&task=ajaxupdate',
+			caption: "{= header}" ,
+			height: "100%"
+			}});
+	jQuery("#list{= tag}").jqGrid('navGrid','#pager{= tag}', {{edit:false,add:false,del:false}} );
+	jQuery("#list{= tag}").jqGrid('filterToolbar',{{stringResult: true,searchOnEnter : false}});
+
+	jQuery.extend(jQuery.fn.fmatter , {{
+	    tick : function(cellvalue, options, rowdata) {{
+			if (cellvalue == '1') return '<img src="images/icons/tick.png"/>';
+			return '';
+	    }}
+	}});
+	jQuery.extend(jQuery.fn.fmatter , {{
+	    one_edit : function (cv, options, rowdata) {{
+		    var uri = "index.php?option=com_one&task=edit&scheme={= scheme->getName()}&id=" + cv;
+			return '<a href="' + uri + '">edit</a>';
+	    }}
+	}});
+	jQuery.extend(jQuery.fn.fmatter , {{
+	    one_detail : function (cv, options, rowdata) {{
+		    var uri = "index.php?option=com_one&task=detail&view=detail&scheme={= scheme->getName()}&id=" + cv;
+			return '<a href="' + uri + '">detail</a>';
+	    }}
+	}});
+
+</script>
+
+<form name="oneForm" id="oneForm" action="{= joomla:route( 'index.php?option=com_one', false )}" method="post">
+<input type="hidden" id="scheme" name="scheme" value="{= scheme->getName()}" />
+<input type="hidden" id="task" name="task" value="list" />
+<input type="hidden" id="view" name="view" value="list" />
+</form>

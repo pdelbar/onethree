@@ -1,0 +1,9 @@
+{set url=joomla:route("index.php?option=com_one&scheme=extension&task=detail&view=detail&id=" . model->extension_id)}
+<li>
+    {if model->enabled}
+        <span class="icon-save" style="color:green;"></span>
+    {else}
+        <span class="icon-cancel" style="color:red;"></span>
+    {endif}
+    <a href="{= url}">{= model->name}</a>
+</li>

@@ -1,0 +1,8 @@
+{include label.html}{include info.html}{include error.html}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<textarea id="{= id}" name="{= name}"{= events}{= params}>{= value}</textarea>{= required}
+	{if trim( label ) != '' && lblLast}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

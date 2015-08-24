@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<relation id="menu_extension" >
+	<roles>
+		<role name="extension" scheme="extension" cardinality="one" />
+		<role name="menuitems" scheme="menu" cardinality="many" fk="component_id" />
+	</roles>
+</relation>

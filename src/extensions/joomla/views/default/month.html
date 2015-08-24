@@ -1,0 +1,116 @@
+{section DAYBOX}
+    <td {if count(events)}class="occupied" {endif} {if (day == date('d')) && (mo == date('m')) && (yr == date('Y'))} class="today"{endif}>
+        <div class="daynr">
+          {if count(events)}
+            {if 0}<a href="index.php?option=com_one&task=day&day={= day}&month={= mo}&year={= yr}&scheme=event">{endif}
+            <b>{= day}</b>
+            {if 0}</a>{endif}
+      {else}
+        {= day}
+         {endif}
+    </div>
+        {@ DAY}
+    </td>
+{endsection}
+
+
+{section DAY}
+  {loop events event}
+      <div class="event">
+      	<a href="index.php?option=com_one&scheme=event&task=detail&view=detail&id={= event->id}">
+          {= one:view(event,'entry_month')}
+        </a>
+      </div>
+  {endloop}
+{endsection}
+
+{section FORM}
+  <form id="cal">
+    <input type="hidden" name="option" value="com_one">
+    <input type="hidden" name="task" value="calendar">
+    <input type="hidden" name="scheme" value="event">
+    <input type="hidden" name="view" value="month">
+    <input type="hidden" name="Itemid" value="{= request:get('Itemid')}">
+
+    Maand <select name="month" onchange="$('cal').submit();">{@ months}</select>
+    Jaar <select name="year" onchange="$('cal').submit();">{@ years}</select>
+  </form>
+{endsection}
+
+{section months}
+  {set m=1}{while m<13}<option value="{= m}" {if m==mo}selected{endif}>{= m}</option>{set m=m+1}{endwhile}
+{endsection}
+{section years}
+  {set y=2008}{while y<date('Y')+3}<option value="{= y}" {if y==yr}selected{endif}>{= y}</option>{set y=y+1}{endwhile}
+{endsection}
+
+{set mo=request:get('month')}{if !mo}{set mo=date('m')}{endif}
+{set yr=request:get('year')}{if !yr}{set yr=date('Y')}{endif}
+
+<h2 class="contentheading">Kalender</h2>
+
+{if mo && yr}
+
+  {set weekday=split(':','MA:DI:WO:DO:VR:ZA:ZO')}
+  {set ndays = cal_days_in_month(CAL_GREGORIAN,mo,yr)}
+  {set from=mktime(0,0,0,mo,1,yr)}
+  {set to=mktime(23,59,59,mo,ndays,yr)}
+
+  {set dummy=setlocale(LC_ALL, 'nl_NL')}
+
+  {set day=0}
+  {set curcol=0}
+  <div >
+    <table class="lcal">
+
+      <tr class="header">
+        <td colspan="2" style="text-align: left;" align="left">
+        	{set prev=strtotime("- 1 month", from)}
+       		<img src="templates/jamesolite/images/red/leftarrow-readon-1.png" style="vertical-align: bottom;margin-bottom: 1px;" >&nbsp;
+        	<a href="index.php?option=com_one&task=calendar&view=month&scheme=event&month={= date("m",prev)}&year={= date("Y",prev)}">
+        		{= strtoupper(strftime('%B %Y',prev))}
+       		</a>
+        </td>
+        <td colspan="3" style="text-align: center;">
+        	{@ FORM}
+      </td>
+        <td colspan="2"  style="text-align: right;" align="right">
+        <div>
+        	{set next=strtotime("+ 1 month", from)}
+        	<a href="index.php?option=com_one&task=calendar&view=month&scheme=event&month={= date("m",next)}&year={= date("Y",next)}">
+        		{= strtoupper(strftime('%B %Y',next))}
+       		</a>
+       		&nbsp;<img src="templates/jamesolite/images/red/arrow-readon-1.png" style="vertical-align: bottom;margin-bottom: 1px;" >
+       		</div>
+        </td>
+      </tr>
+
+      <tr class="calheader2" >
+        <td colspan="7">
+        {= strtoupper(strftime('%B %Y',from))}
+      </td>
+      </tr>
+
+      <tr class="calheader">{set col=0}{while col<7}<td>{= weekday[col]}</td>{set col=col+1}{endwhile}</tr>
+
+      <tr valign="top">
+        {while day < ndays}
+          {set day=day+1}
+          {set theday=mktime(0,0,0,mo,day,yr)}
+          {set col=date('N',theday)%7}
+          {while curcol<col-1}
+            <td class="none"></td>
+            {set curcol=curcol+1}
+          {endwhile}
+           {set events=model[day]}
+           {@ DAYBOX}
+          {set curcol=curcol+1}
+          {if curcol>6}{set curcol=0}</tr><tr valign="top">{endif}
+        {endwhile}
+      </tr>
+    </table>
+  </div>
+{else}
+	{@ FORM}
+{endif}
+

@@ -1,0 +1,3 @@
+{if is_array( errors ) && count( errors ) > 0}<div class="OneFormErrors">{loop errors items}{loop items error}{= error}<br />{endloop}{endloop}</div>{endif}
+
+{= dom->render()}

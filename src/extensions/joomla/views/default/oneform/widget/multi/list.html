@@ -1,0 +1,27 @@
+{include label.html}{include info.html}{include error.html}
+{set oriLabel = label}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<select id="{= id}" size="{= size}" multiple="true" name="{= name}[]"{= params}{= events}>
+	{set inGroup = 0}
+	{loop options optvalue optlabel}
+		{if 0 < preg_match('!^SELECTGROUP:!', optvalue)}
+		{if inGroup == 1}</optgroup>{endif}
+		{set inGroup = 1}
+		<optgroup label="{= optlabel}">
+		{else}
+		{set selected = ''}
+		{if is_array( value )}
+			{if in_array( optvalue, value )}{set selected = ' selected="selected"'}{endif}
+		{else}
+			{if optvalue == value}{set selected = ' selected="selected"'}{endif}
+		{endif}
+		<option value="{= optvalue}"{= selected}>{= optlabel}</option>
+		{endif}
+	{endloop}
+		{if inGroup == 1}</optgroup>{endif}
+	</select>
+	{if trim( oriLabel ) != '' && lblLast}{set label = oriLabel}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

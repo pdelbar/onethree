@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<relation id="submenus" >
+	<roles>
+		<role name="parent" scheme="menu" cardinality="one" />
+		<role name="children" scheme="menu" cardinality="many" fk="parent_id" />
+	</roles>
+</relation>

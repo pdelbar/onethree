@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="General MVC">
+        <message><![CDATA[Specify your own one|content MVC page]]></message>
+	</layout>
+
+	 <!--Shown underneath the menu type selector.-->
+    <fields name="request">
+        <fieldset name="request"
+                  addfieldpath="/components/com_one/fields">
+
+            <field name="controller"
+                   type="hidden"
+                   default="default"
+                    />
+            <field name="scheme" type="scheme"
+                   label="Scheme"
+                   required="true"
+                   edit="true"
+                   clear="false"
+                   description="Scheme to use for the current menu-item"
+                    />
+            <field name="task" type="text"
+                   label="Task"
+                   required="true"
+                   edit="true"
+                   clear="false"
+                   description="Task to use for the current menu-item"
+                    />
+            <field name="oview" type="text"
+                   label="View"
+                   required="false"
+                   edit="true"
+                   clear="false"
+                   description="View to use for the current menu-item"
+                    />
+
+        </fieldset>
+    </fields>
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params">
+
+        <fieldset name="advanced"
+                  addfieldpath="/components/com_one/fields">
+            <field name="order" type="attribute"
+                   label="Order field"
+                   description="Set the attribute to order by"
+                    />
+            <field name="orderdirection" type="radio" label="Order Direction" description="Set the order direction" default="asc">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </field>
+            <field name="filters"
+                   type="text"
+                   default=""
+                   label="Filters"
+                   description="Comma-separated list of filters to apply to the query" />
+            <field name="filterParameters"
+                   type="textarea" cols="60"  rows="6"
+                   label="Filter parameters"
+                   description="Parameters to pass to the filters" />
+
+            <field name="count" type="text" default="" label="Number of items to show" description="" />
+            <field name="start" type="text" default="0" label="Starting from" description="" />
+            <field name="extraParameters" type="textarea" rows="4" cols="45" default="" label="Extra Parameters" description="Set extra parameters you want to pass along separated by newlines and use an equal sign to separate key and value" />
+            <field name="parseContentPlugins" type="radio"
+                   label="Run content Plugins"
+                   description="Should the content be parsed by content plugins?"
+                   class="btn-group"
+                   default="0">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </field>
+        </fieldset>
+
+
+	</fields>
+</metadata>

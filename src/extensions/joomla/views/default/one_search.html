@@ -1,0 +1,21 @@
+{set form = oneform:get(formFile, searchModel)}
+{= oneform:render(form, searchModel)}
+
+{if is_array(model)}
+	{if 0 < count(model)}
+		<div>{@ searchform:RESULTS_FOUND}: {= nrResults}</div>
+
+		{loop model schemeName results}
+		<div>
+			<h2>{= one:getScheme(schemeName)->getTitle()}</h2>
+			<ul>
+			{loop results result}
+				<li><a href="{= result->One_Search_Result->link}">{= result->One_Search_Result->title}</a><br />
+				{= result->One_Search_Result->text}</li>
+			{endloop}</ul>
+		</div>
+		{endloop}
+	{else}
+		{@ searchform:NO_RESULTS_FOUND}
+	{endif}
+{endif}

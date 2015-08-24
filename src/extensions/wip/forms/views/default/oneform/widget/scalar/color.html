@@ -1,0 +1,10 @@
+{include label.html}{include info.html}{include error.html}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<input type="text" id="{= id}" name="{= name}" value="{= value}" size="10" maxlength="6" onkeyup="document.getElementById( 'col__{= id}__col' ).style.backgroundColor = '#' + this.value;" />
+	<a href="#" onclick="cp.select( document.getElementById( '{= id}' ), 'pick'); return false;" name="pick" id="pick"><img src="{= one:getVendorInstance()->getSitepath()}/images/color_swatch.png" alt="Pick color" border="0" /></a>
+	<div id="col__{= id}__col" style="float: left; width: 10px; border: 1px solid #555; height: 17px; background-color: #{= value}"></div>
+	{if trim( label ) != '' && lblLast}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

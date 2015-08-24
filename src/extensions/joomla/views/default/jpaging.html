@@ -1,0 +1,239 @@
+{section COMMENT}
+	Replaced variable 'count' by 'cnt' since nanoScript was getting confused by the variable 'count' and the function 'count()'
+	Inspiration for styles: http://www.smashingmagazine.com/2007/11/16/pagination-gallery-examples-and-good-practices/
+{endsection}
+
+{@ PARAMETERS}
+
+{if (cnt)}
+	{set j = 0}
+	{set totalPages = ceil(total / cnt)}
+	{set thisPageNr = floor((start + cnt)/cnt)}
+	{set maxShowPage = 10}
+	{set firstShowPage = floor(thisPageNr / maxShowPage) * 10}
+	{set lastShowPage = firstShowPage + maxShowPage}
+
+	<div id="onePagination">
+
+		<div id="limit">
+			{@ LIMIT}
+		</div>
+
+		<div class="arrows">
+		{if j <> start}
+			{set url = joomla:route( 'index.php?option=com_one&view='.view.'&scheme='.scheme.'&task='.task.'&start='.j.'&count='.cnt.'&Itemid='.Itemid )}
+			{@ ADDFILTER}
+			<div class="first">
+				<a href='{= url}'>&lt;&lt;</a>
+			</div>
+		{else}
+			<div class="first" style="background: none;">
+				&lt;&lt;
+			</div>
+		{endif}
+
+		{if (start > 0)}
+			{set prevstart = start - cnt}
+			{if prevstart < 0}{set prevstart = 0}{endif}
+			{set url = joomla:route( 'index.php?option=com_one&view='.view.'&scheme='.scheme.'&task='.task.'&start='.prevstart.'&count='.cnt.'&Itemid='.Itemid )}
+			{@ ADDFILTER}
+			<div class="prev">
+				<a href='{= url}'>&lt;</a>
+			</div>
+		{else}
+			<div class="prev" style="background: none;">
+				&lt;
+			</div>
+		{endif}
+		</div>
+
+		<div class="numbers">
+		{while (total > j)}
+
+			{if (i+1) > firstShowPage-1 && (i+1) < lastShowPage}
+
+				{if j <> start}
+					{set url = joomla:route( 'index.php?option=com_one&scheme='.scheme.'&view='.view.'&task='.task.'&start='.j.'&count='.cnt.'&Itemid='.Itemid )}
+					{@ ADDFILTER}
+					<div class="nr">
+						<a href='{= url}'>{= i + 1}</a>
+					</div>
+				{else}
+					<div class="nr" style="background:none; font-weight:bold;">
+						{= i + 1}
+					</div>
+				{endif}
+
+			{endif}
+
+			{set i = i + 1}
+			{set j = i * cnt}
+
+		{endwhile}
+		</div>
+
+		{set i = i - 1}
+		{set j = i * cnt}
+
+		<div class="arrows">
+
+			{if (start < j)}
+				{set nextstart = start + cnt}
+				{set url = joomla:route( 'index.php?option=com_one&scheme='.scheme.'&view='.view.'&task='.task.'&start='.nextstart.'&count='.cnt.'&Itemid='.Itemid )}
+				{@ ADDFILTER}
+				<div class="next">
+					<a href='{= url}'>&gt;</a>
+				</div>
+			{else}
+				<div class="next" style="background:none;">
+					&gt;
+				</div>
+			{endif}
+
+			{if j <> start}
+				{set url = joomla:route( 'index.php?option=com_one&view='.view.'&scheme='.scheme.'&task='.task.'&start='.j.'&count='.cnt.'&Itemid='.Itemid )}
+				{@ ADDFILTER}
+				<div class="last">
+					<a href='{= url}'>&gt;&gt;</a>
+				</div>
+			{else}
+				<div class="last">
+					&gt;&gt;
+				</div>
+			{endif}
+		</div>
+
+		<div class="pagePosition">Pagina {= thisPageNr} van {= i+1}</div>
+	</div>
+{endif}
+
+{section PARAMETERS}
+	{set id = joomla:getVar( 'id' )}
+
+	{set cnt = joomla:getParam('count')}
+	{if (joomla:getVar('count', 0))}{set cnt = joomla:getVar('count', 0)}{endif}
+	{if (!cnt)}{set cnt = 25}{endif}
+
+	{set start = joomla:getVar( 'start', 0 )}
+	{if (!start)}{set start = joomla:getParam('start')}{endif}
+
+	{set scheme = joomla:getVar( 'scheme', '' )}
+
+	{set Itemid = joomla:getCurrentItemid()}
+
+	{set view = joomla:getVar( 'view', '' )}
+	{if (!view)}{set view = joomla:getParam('view')}{endif}
+
+	{set task = joomla:getVar( 'task', '' )}
+	{if (!task)}{set task = joomla:getParam('task')}{endif}
+	{if (!task)}{set task = joomla:getVar( 'view', '' )}{endif}
+
+	{set query = joomla:getVar( 'query', '' )}
+	{set filter_str = joomla:getVar( 'filters', '' )}
+
+	{set filters = str_replace( '&', '%26', filter_str )}
+
+	{set options = array("query" => query, "filters" => filter_str)}
+
+	{set total = one:selectCount(scheme, options)}
+
+	{if (cnt == 'alles')}{set cnt = total}{endif}
+{endsection}
+
+{section LIMIT}
+	<script type="text/javascript">
+		function setLimit(count) {{
+			var view = document.limitForm.view.value;
+			var scheme = document.limitForm.scheme.value;
+			var task = document.limitForm.task.value;
+			var start = document.limitForm.start.value;
+			var filters = document.limitForm.filters.value;
+			var Itemid = document.limitForm.Itemid.value;
+			var id = document.limitForm.id.value;
+
+			if( id > 0)
+			{{
+				var id = "&id="+id;
+			}}else{{
+				var id = "";
+			}}
+
+			var url = window.location.pathname + '?{= joomla:getQuery()}';
+
+			if(null !== url.match(/count=\d+/)) {{
+				url = url.replace(/count=\d+/, 'count='+count);
+			}}
+			else {{
+				url += "&count="+count;
+			}}
+
+			if(count >= {= total}) {{
+				start = 0;
+			}}
+			if(null !== url.match(/start=\d+/)) {{
+				url = url.replace(/start=\d+/, 'start='+start);
+			}}
+			else {{
+				url += "&start="+start;
+			}}
+
+// 			if( filters == "" )
+// 			{{
+// 				var url = "index.php?option=com_one&view="+view+"&scheme="+scheme+"&task="+task+"&start="+start+"&count="+count+"&Itemid="+Itemid+id;
+// 			}}else{{
+// 				var url = "index.php?option=com_one&view="+view+"&scheme="+scheme+"&task="+task+"&start="+start+"&count="+count+"&query=model&filters="+filters+"&Itemid="+Itemid+id;
+// 			}}
+
+			window.location = url;
+		}}
+	</script>
+
+	<form name="limitForm" id="limit">
+		<input type="hidden" name="start" id="start" value="{= start}" />
+		<input type="hidden" name="task" id="task" value="{= task}" />
+		<input type="hidden" name="scheme" id="scheme" value="{= scheme}" />
+		<input type="hidden" name="view" id="view" value="{= view}" />
+		<input type="hidden" name="cnt" id="cnt" value="{= cnt}" />
+		<input type="hidden" name="filters" id="filters" value="{= filters}" />
+		<input type="hidden" name="Itemid" id="Itemid" value="{= Itemid}" />
+		<input type="hidden" name="id" id="id" value="{= id}" />
+			Toon&nbsp;
+			<select name="limit" id="limit" class="inputbox" size="1" onchange="setLimit(this.options[this.selectedIndex].value);">
+				<option value="5" {if cnt==5}selected="selected"{endif}>5</option>
+				<option value="10" {if cnt==10}selected="selected"{endif}>10</option>
+				<option value="15" {if cnt==15}selected="selected"{endif}>15</option>
+				<option value="20" {if cnt==20}selected="selected"{endif}>20</option>
+				<option value="25" {if cnt==25}selected="selected"{endif}>25</option>
+				<option value="30" {if cnt==30}selected="selected"{endif}>30</option>
+				<option value="50" {if cnt==50}selected="selected"{endif}>50</option>
+				<option value="100" {if cnt==100}selected="selected"{endif}>100</option>
+				<option value="alles" {if cnt==total}selected="selected"{endif}>alles</option>
+			</select>
+			&nbsp;{= schemeName}
+	</form>
+{endsection}
+
+{section ADDFILTER}
+	{if query == "model"}
+		{set url = url . "&query=model&filters=" . filters}
+	{else}
+		{set url = joomla:route( url, false )}
+	{endif}
+{endsection}
+
+{section DEBUG}
+	<div style="border:1px solid black;">
+		<b>Debug: </b><br>
+		thisPageNr: {= thisPageNr}<br>
+		firstShowPage: {= firstShowPage}<br>
+		lastShowPage: {= lastShowPage}<br>
+		totalPages: {= totalPages}<br>
+		i: {= i}<br>
+		j: {= j}<br>
+		start: {= start}<br />
+		cnt: {= cnt}<br>
+		total: {= total}<br />
+		query: {= query}<br />
+		filters: {= filters}
+	</div>
+{endsection}

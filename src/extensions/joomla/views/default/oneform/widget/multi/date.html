@@ -1,0 +1,9 @@
+{include label.html}{include info.html}{include error.html}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<div id="OneCalendar{= ucfirst( id )}" class="OneCalendar"></div>
+	<input type="hidden" id="{= id}" name="{= name}" value="{= value}" />
+	{if trim( oriLabel ) != '' && lblLast}{set label = oriLabel}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

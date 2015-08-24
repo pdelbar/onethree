@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scheme name="onedummy">
+	<info>
+		<description>This dummy-scheme is used for some operations where schemes are not available and is for One's internal use only</description>
+		<options>internal</options>
+	</info>
+	<attributes />
+	<connection name="mock" />
+</scheme>

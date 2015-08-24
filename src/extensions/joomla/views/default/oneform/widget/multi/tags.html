@@ -1,0 +1,8 @@
+{include label.html}{include info.html}{include error.html}
+<span class='OneWidget'>
+	{if trim( label ) != '' && !lblLast}{@ LABEL}{endif}
+	<input type="text" id="{= id}" name="{= name}" />
+	{if trim( label ) != '' && lblLast}{@ LABEL}{endif}
+</span>
+{@ INFO}
+{@ ERROR}

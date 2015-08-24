@@ -1,0 +1,22 @@
+<li>
+    {= one:view(model,'li_self')}
+    {if model->parent_id != 1}
+        {if model->parent}
+            <ul>
+                <li>
+                    parent menu:
+                    {= one:view(model->parent,'li_self')}
+                </li>
+            </ul>
+        {endif}
+    {endif}
+    {set sub=model->submenus}
+    {if count(sub) > 0}
+    <ul>
+        submenus:
+        {loop sub sm}
+            <li>{= one:view(sm,'li_self')}</li>
+        {endloop}
+    </ul>
+    {endif}
+</li>

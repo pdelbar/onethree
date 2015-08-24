@@ -1,0 +1,4 @@
+{set url=joomla:route('index.php?option=com_one&scheme=menu&task=detail&view=detail&id=' . model->id)}
+<a href="{= url}">{= model->title}</a>
+(<i>{= model->alias}</i>)
+{if !model->published} -- currently disabled{endif}
