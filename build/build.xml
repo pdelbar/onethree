@@ -10,6 +10,7 @@
         <echo msg="  plg_one      the one|content system plugin"/>
         <echo msg="  core         the extension containing the core one|content library "/>
         <echo msg="  joomla       the extension containing the joomla-specific library"/>
+        <echo msg="  script       the extension containing nanoscript's offspring"/>
         <echo msg="  com_one      the main component"/>
         <echo msg=""/>
         <echo msg="  demo         the extension containing a few demo definitions"/>
