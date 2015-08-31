@@ -8,10 +8,10 @@
         <echo msg="----------------------------------------------"/>
         <echo msg="Available targets are:"/>
         <echo msg="  plg_one      the one|content system plugin"/>
+        <echo msg="  com_one      the main component"/>
         <echo msg="  core         the extension containing the core one|content library "/>
         <echo msg="  joomla       the extension containing the joomla-specific library"/>
         <echo msg="  script       the extension containing nanoscript's offspring"/>
-        <echo msg="  com_one      the main component"/>
         <echo msg=""/>
         <echo msg="  demo         the extension containing a few demo definitions"/>
     </target>
@@ -54,6 +54,48 @@
         <exec command="/usr/bin/php scripts/createExtensionManifest.php ${root} ${folder} ${extension} ${release}"
               output="./work/${extension}.xml" escape="false" dir="."/>
     </target>
+
+    <!-- ****************************************************** -->
+
+    <target name="makePackageManifest">
+        <exec command="/usr/bin/php scripts/createPackageManifest.php ${root} ${folder} ${extension} ${release}"
+              output="./work/pkg_one.xml" escape="false" dir="."/>
+    </target>
+
+    <!-- ****************************************************** -->
+    <!--
+        makePackage
+
+        Create standard installer package
+    -->
+    <!-- ****************************************************** -->
+
+    <target name="package" depends="plg_one,com_one,core,joomla,script">
+        <echo msg="--- Cleaning up build directory"/>
+        <delete file="pkg_one.zip"/>
+        <delete dir="./work"/>
+
+        <echo msg="--- Starting to build the general one installer package"/>
+        <mkdir dir="./work"/>
+        <mkdir dir="./work/packages"/>
+
+        <copy file = "./pkg_one_plugin_system_${release}.zip" tofile = "./work/packages/plg_sys_one.zip" />
+        <copy file = "./pkg_one_component_${release}.zip" tofile = "./work/packages/com_one.zip" />
+        <copy file = "./pkg_one_extension_core_${release}.zip" tofile = "./work/packages/lib_one_lib_core.zip" />
+        <copy file = "./pkg_one_extension_joomla_${release}.zip" tofile = "./work/packages/lib_one_lib_joomla.zip" />
+        <copy file = "./pkg_one_extension_script_${release}.zip" tofile = "./work/packages/lib_one_lib_script.zip" />
+
+        <echo msg="--- Generating the manifest"/>
+        <phingcall target="makePackageManifest"/>
+
+        <echo msg="--- Creating archive"/>
+        <zip destfile="./pkg_one.zip">
+            <fileset dir="./work">
+                <include name="**/**"/>
+            </fileset>
+        </zip>
+    </target>
+
 
     <!-- ****************************************************** -->
     <!--
