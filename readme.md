@@ -1,15 +1,15 @@
 
-                                 @@                               @@                         @@
-     @@@@@@@  @@ @@@@@   @@@@@@  @@  @@@@@@@   @@@@@@@  @@ @@@@@  @@@@@@@  @@@@@@  @@ @@@@@  @@@@@@@
-    @@     @@ @@@    @@ @@    @@ @@ @@     @@ @@     @@ @@@    @@ @@      @@    @@ @@@    @@ @@
-    @@     @@ @@     @@ @@@@@@@@ @@ @@        @@     @@ @@     @@ @@      @@@@@@@@ @@     @@ @@
-    @@     @@ @@     @@ @@       @@ @@     @@ @@     @@ @@     @@ @@      @@       @@     @@ @@
-     @@@@@@@  @@     @@  @@@@@@  @@  @@@@@@@   @@@@@@@  @@     @@  @@@@@@  @@@@@@  @@     @@  @@@@@@
-                                 @@
+                                @@                             @@                       @@
+     @@@@@@  @@ @@@@@   @@@@@@  @@  @@@@@@   @@@@@@  @@ @@@@@  @@@@@  @@@@@@  @@ @@@@@  @@@@@
+    @@    @@ @@@    @@ @@    @@ @@ @@    @@ @@    @@ @@@    @@ @@    @@    @@ @@@    @@ @@
+    @@    @@ @@     @@ @@@@@@@@ @@ @@       @@    @@ @@     @@ @@    @@@@@@@@ @@     @@ @@
+    @@    @@ @@     @@ @@       @@ @@    @@ @@    @@ @@     @@ @@    @@       @@     @@ @@
+     @@@@@@  @@     @@  @@@@@@  @@  @@@@@@   @@@@@@  @@     @@  @@@@  @@@@@@  @@     @@  @@@@
+                                @@
                          
-               Everything is content. Content is everything.
+                          Everything is content. Content is everything.
 
-This is the construction site for one|content for Joomla 3.x. 
+This is the base repository for one|content for Joomla 3.x. 
 
     .
         build/  contains the phing build script and tooling
@@ -25,6 +25,12 @@ Currently, you will need phing to build the extensions needed to install one|con
 to get a list of targets you can build. 
 
 # Installing one|content
+
+## Easy
+
+Use the **pkg_one.zip** installer package. It's not working yet, but when it is finished, life will be easier.
+
+## Harder
 
 You will need to build and install the following parts:
 
