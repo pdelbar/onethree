@@ -1,11 +1,11 @@
 
-                         @                      @                   @
-     @@@@  @ @@@   @@@@  @  @@@@   @@@@  @ @@@  @@@@@  @@@@  @ @@@  @@@@@
-    @    @ @@   @ @    @ @ @    @ @    @ @@   @ @     @    @ @@   @ @
-    @    @ @    @ @@@@@@ @ @      @    @ @    @ @     @@@@@@ @    @ @
-    @    @ @    @ @      @ @    @ @    @ @    @ @     @      @    @ @
-     @@@@  @    @  @@@@  @  @@@@   @@@@  @    @  @@@@  @@@@  @    @  @@@@
-                         @
+                                 @@                               @@                         @@
+     @@@@@@@  @@ @@@@@   @@@@@@  @@  @@@@@@@   @@@@@@@  @@ @@@@@  @@@@@@@  @@@@@@  @@ @@@@@  @@@@@@@
+    @@     @@ @@@    @@ @@    @@ @@ @@     @@ @@     @@ @@@    @@ @@      @@    @@ @@@    @@ @@
+    @@     @@ @@     @@ @@@@@@@@ @@ @@        @@     @@ @@     @@ @@      @@@@@@@@ @@     @@ @@
+    @@     @@ @@     @@ @@       @@ @@     @@ @@     @@ @@     @@ @@      @@       @@     @@ @@
+     @@@@@@@  @@     @@  @@@@@@  @@  @@@@@@@   @@@@@@@  @@     @@  @@@@@@  @@@@@@  @@     @@  @@@@@@
+                                 @@
                          
                Everything is content. Content is everything.
 
@@ -47,7 +47,7 @@ System plugin needs better parameter config but basically does what it needs to 
 
 Most of one|content's stuff is stored in `/libraries/one/lib`. The principal library is **core** and it contains the one|content framework itself. The **joomla** extension contains whatever is joomla-specific. The **script** extension contains the default templater, but I've already tested a PHP-ony templater as an alternative, but not thoroughly.  
 
-The code for these is refactored from the previous J2.x version of one|content and heavily work in progress. I assume that most of the short-term changs are going to be located here. To give you an idea, any file named `whatever_tbd.php` has not been fully sanitized -- which does not by any standard mean that 'regular' files are completely sanitized.
+The code for these is refactored from the previous J2.x version of one|content and heavily work in progress. I assume that most of the short-term changes are going to be located here. To give you an idea, any file named `whatever_tbd.php` has not been fully sanitized -- which does not by any standard mean that 'regular' files are completely sanitized.
   
 You will also find other src/extension folders containing unmigrated material.
 

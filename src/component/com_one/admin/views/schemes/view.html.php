@@ -37,6 +37,7 @@
 
       JToolbarHelper::title('one|content: Schemes');
 
+      JToolbarHelper::custom('tools', $icon = 'cogs', 'cogs', 'Tools');
 
       JHtmlSidebar::setAction('index.php?option=com_one&view=schemes');
       JHtmlSidebar::addEntry(
