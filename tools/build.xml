@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="one" default="help" >
+
+    <property name="reporoot" value="" />
+    <property name="siteroot" value="" />
+
+    <target name="help">
+        <echo msg="Welcome to the one|content phing tools script!"/>
+        <echo msg="----------------------------------------------"/>
+        <echo msg="Available targets are:"/>
+        <echo msg="  gitify       link to a repo version of the libraries instead of installed code"/>
+    </target>
+
+    <!-- ****************************************************** -->
+    <!--
+            Requires phing -Dreporoot=... -Dsiteroot=...
+    -->
+    <!-- ****************************************************** -->
+
+    <target name="gitify">
+        <if>
+            <equals arg1="${reporoot}" arg2="" />
+            <then>
+                <echo message="No value given for reporoot"/>
+            </then>
+            <else>
+                <if>
+                    <equals arg1="${siteroot}" arg2="" />
+                    <then>
+                        <echo message="No value given for siteroot"/>
+                    </then>
+                    <else>
+                        <phingcall target="doGitify" />
+                    </else>
+                </if>
+            </else>
+        </if>
+    </target>
+
+
+    <target name="doGitify">
+        <phingcall target="userepo">
+            <property name="extension" value="core" override="true"/>
+            <property name="from" value="${reporoot}/src/extensions" override="true"/>
+            <property name="to" value="${siteroot}/libraries/one/lib" override="true"/>
+        </phingcall>
+        <phingcall target="userepo">
+            <property name="extension" value="joomla" override="true"/>
+            <property name="from" value="${reporoot}/src/extensions" override="true"/>
+            <property name="to" value="${siteroot}/libraries/one/lib" override="true"/>
+        </phingcall>
+        <phingcall target="userepo">
+            <property name="extension" value="script" override="true"/>
+            <property name="from" value="${reporoot}/src/extensions" override="true"/>
+            <property name="to" value="${siteroot}/libraries/one/lib" override="true"/>
+        </phingcall>
+    </target>
+
+    <!-- ****************************************************** -->
+
+    <target name="userepo">
+        <echo msg="Gitifying extension ${extension} : ${from} -> ${to}" />
+
+        <echo msg="--- Archiving current content"/>
+        <zip destfile="${siteroot}/tmp/one_lib_${extension}.zip">
+            <fileset dir="${to}/${extension}">
+                <include name="**/**"/>
+            </fileset>
+        </zip>
+
+        <echo msg="--- Removing ${extension}"/>
+        <delete dir="${to}/${extension}"/>
+
+        <echo msg="--- Creating symlink"/>
+        <symlink target="${from}/${extension}" link="${to}/${extension}" />
+    </target>
+
+
+
+</project>
