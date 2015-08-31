@@ -51,11 +51,11 @@
         }
       }
 
-      $options = array_merge($defaults, $menu_options, $options);
-
       if(isset($options['oview'])) {
         $options['view'] = $options['oview'];
       }
+
+      $options = array_merge($defaults, $menu_options, $options);
 
       // convert order to one format (foo+ or foo-)
       if (array_key_exists('order', $options)) {
