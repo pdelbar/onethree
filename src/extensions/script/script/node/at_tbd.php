@@ -18,7 +18,8 @@ class One_Script_Node_At extends One_Script_Node_Abstract
 
     $parts = preg_split('/\s/',trim($data), 2);
     $this->sectionName = $parts[0];
-    $this->argumentExpression = $parts[1] or null;
+    $this->argumentExpression = isset($parts[1]) ? $parts[1] :  null;
+
 //		echo "Expr = /$parts[1]/";
 
 //    $this->searchPath = One_Script_Factory::getSearchPath();
@@ -66,6 +67,7 @@ class One_Script_Node_At extends One_Script_Node_Abstract
    */
   private function &findSectionNode( $sec, &$parent )
   {
+    $ns = '';
     //PD09SEP09: check  for a namespace in the section name, format namespace:section
     $parts = explode( ':', $sec, 2 );
     if (count($parts) > 1) {

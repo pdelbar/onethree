@@ -17,7 +17,7 @@ class One_Script_Node_Section extends One_Script_Node_Abstract
 
 		$parts = preg_split('/\s/',trim($data));
 		$this->sectionName = $parts[0];
-		$this->argument = $parts[1] or null;
+		$this->argument = isset($parts[1]) ? $parts[1] :  null;
 //              echo 'ARG=',$this->argument;
 
 		$this->mark = false;

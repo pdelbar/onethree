@@ -420,7 +420,7 @@
 
       $modified = $model->getModified();
       foreach ($scheme->getLinks() as $link) {
-        if ($link->getLinkType() == "manytoone") {
+        if ($link->getAdapterType() == "manytoone") {
           $fk = $link->fk();
           if (isset($modified[$fk])) {
             $data->$fk = $modified[$fk];
@@ -456,7 +456,7 @@
 
         // Handle ManyToMany relations
         foreach ($scheme->getLinks() as $link) {
-          if ($link->getLinkType() == "manytomany") {
+          if ($link->getAdapterType() == "manytomany") {
             if (isset($modifiedRelations[$link->getName()])) {
               $model->saveRelated($link);
             }
@@ -505,7 +505,7 @@
       // * OneToMany
       // 		* Not needed for now - When editing, we'll usually edit the child and select it's parent
       foreach ($scheme->getLinks() as $link) {
-        if ($link->getLinkType() == "manytoone") {
+        if ($link->getAdapterType() == "manytoone") {
           $fk = $link->fk();
           if (isset($modified[$fk])) {
             $data->$fk = $modified[$fk];
@@ -546,7 +546,7 @@
         /*var_dump($link);
         exit();*/
 
-        if ($link->getLinkType() == "manytomany") {
+        if ($link->getAdapterType() == "manytomany") {
           if (isset($modifiedRelations[$link->getName()])) {
             $model->saveRelated($link);
           }

@@ -522,9 +522,11 @@ abstract class One_Form_Widget_Abstract
 		$data['excludeError'] = (in_array($this->getCfg('excludeError'), array('true', 'yes', '1', 'exclude', 'excludeError'))) ? 1 : 0;
 
     // determine if we need to look for the template-file in a subfolder of widget
-		$current = str_replace('One_Form_Widget_', '', get_class($this));
+    $widgetClass = preg_match('/One_Form_Widget_Default_/', get_class($this)) ? get_parent_class($this) : get_class($this);
+
+		$current = str_replace('One_Form_Widget_', '', $widgetClass);
 		$parts   = preg_split('/_/', strtolower($current));
-		array_pop($parts);
+//		array_pop($parts);
 		$wtype = implode(DIRECTORY_SEPARATOR, $parts);
 
     $formChrome = One_Config::get('form.chrome','');
@@ -539,7 +541,8 @@ abstract class One_Form_Widget_Abstract
     One_Script_Factory::pushSearchPath( $pattern );
 
     $script = new One_Script();
-    $script->load($this->_type . '.html');
+//    $script->load($this->_type . '.html');
+    $script->load($wtype . '.html');
     if ($script->error) {
       One_Script_Factory::popSearchPath();
       throw new One_Exception('Error loading template for widget ' . $this->_type . ' : ' . $script->error);

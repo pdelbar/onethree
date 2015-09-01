@@ -239,7 +239,7 @@ class One_Query_Renderer_Mysql extends One_Query_Renderer_Abstract
 	 */
 	protected function createJoin($link, $linkType = '')
 	{
-		switch($link['link']->getLinkType())
+		switch($link['link']->getAdapterType())
 		{
 			case 'onetomany':
 				return $this->OneToManyJoin($link, $linkType);
@@ -269,7 +269,7 @@ class One_Query_Renderer_Mysql extends One_Query_Renderer_Abstract
 			throw new One_Exception("There is no link with id ".$link['link']->getLinkId()." in scheme ".$link['link']->getTarget());
 		}
 
-		$fk = $link['link']->getLinkType()->remoteFK($link['link'], $target, $backlink);
+		$fk = $link['link']->getAdapterType()->remoteFK($link['link'], $target, $backlink);
 //		$idAtt = $this->scheme->getIdentityAttribute()->getName();
 		$idAtt = $this->scheme->getIdentityAttribute()->getColumn();
 
@@ -291,7 +291,7 @@ class One_Query_Renderer_Mysql extends One_Query_Renderer_Abstract
 	protected function ManyToOneJoin($link, $linkType = '')
 	{
 		$target = One_Repository::getScheme($link['link']->getTarget());
-		$fk = $link['link']->getLinkType()->localFK($link['link'], $target);
+		$fk = $link['link']->getAdapterType()->localFK($link['link'], $target);
 //		$idAtt = $link['scheme']->getIdentityAttribute()->getName();
 		$idAtt = $link['scheme']->getIdentityAttribute()->getColumn();
 
@@ -322,8 +322,8 @@ class One_Query_Renderer_Mysql extends One_Query_Renderer_Abstract
 			throw new One_Exception("There is no link with id ".$link['link']->getLinkId()." in scheme ".$target->getName());
 		}
 
-		$fkLocal  = $link['link']->getLinkType()->localFK($link['link'], $target);
-		$fkRemote = $link['link']->getLinkType()->remoteFK($link['link'], $source, $backlink );
+		$fkLocal  = $link['link']->getAdapterType()->localFK($link['link'], $target);
+		$fkRemote = $link['link']->getAdapterType()->remoteFK($link['link'], $source, $backlink );
 
 //		$sourceId = $source->getIdentityAttribute()->getName();
 		$sourceId = $source->getIdentityAttribute()->getColumn();
