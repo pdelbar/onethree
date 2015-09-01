@@ -8,7 +8,7 @@
  *
  * ONEDISCLAIMER
  **/
-class One_Form_Reader_Xml implements One_Form_Reader_Interface {
+class One_Form_Reader_Xml {
   /**
    * @var DOMDocument
    */
@@ -29,7 +29,7 @@ class One_Form_Reader_Xml implements One_Form_Reader_Interface {
   public static function load($filepath, $scheme, $language = NULL, $formName = 'oneForm', $action = '', $method = 'post') {
     // -----------------
     // TODO: this section of code is absolute horror
-//    $templater = One_Repository::getTemplater(NULL, false);
+    $templater = One_Repository::getTemplater(NULL, false);
 
 
 //    $filepath = One::getInstance()->locate('meta'.DIRECTORY_SEPARATOR.'scheme'.DIRECTORY_SEPARATOR.$fileName.'.xml');
@@ -51,11 +51,12 @@ class One_Form_Reader_Xml implements One_Form_Reader_Interface {
 
 //    $templater->setSearchpath($oldSearchpaths);
 
+
     $script = new One_Script();
     $script->load($filepath);
     $parsedContent = $script->execute();
-    echo "<pre>$parsedContent</pre>";
-    echo '<hr>';
+//    echo "<pre>$parsedContent</pre>";
+//    echo '<hr>';
 
     if ($templater->hasError()) {
       throw new One_Exception($templater->getError());
@@ -98,6 +99,7 @@ class One_Form_Reader_Xml implements One_Form_Reader_Interface {
         $form = new One_Form_Container_Form($formName, $action, $method, $attributes);
 
         foreach ($formEle->childNodes as $child) {
+          echo '** ';
           if ($child instanceof DOMElement) {
             self::_parseToForm($child, $form);
           }
@@ -109,9 +111,6 @@ class One_Form_Reader_Xml implements One_Form_Reader_Interface {
     {
       return self::createDefaultForm($scheme, $formFile, $language, $formName, $action, $method);
     }
-
-
-    self::addObligatedWidgets($form, $scheme);
 
 //    $templater->clearSearchpath();
 //    $templater->setSearchpath($oldSearchpaths);
@@ -548,6 +547,7 @@ class One_Form_Reader_Xml implements One_Form_Reader_Interface {
     } elseif (in_array(self::$_defaultWidget . '-' . $name, $availableCW['widgets']))
       $className = 'One_Form_Widget_' . ucfirst(self::$_defaultWidget) . '_' . ucfirst($name);
 
+    echo $className;
     return $className;
   }
 

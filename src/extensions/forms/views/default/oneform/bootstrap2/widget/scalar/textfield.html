@@ -1,0 +1,11 @@
+{include label.html}{include info.html}{include error.html}
+<div class="OneWidget control-group {if hasError}error{endif}">
+    <label class="control-label" for="{= id}">{@ LABEL}</label>
+    <div class="controls">
+        <input type="{= totf}" id="{= id}" name="{= name}" value="{= value}"{= events}{= params} />
+    </div>
+</div>
+{@ INFO}
+{@ ERROR}
+
+

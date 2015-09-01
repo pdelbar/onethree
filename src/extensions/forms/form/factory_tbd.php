@@ -41,6 +41,7 @@
       try {
         if ($filepath !== null) {
           $form = One_Form_Reader_Xml::load($filepath, $scheme, $language, $formName, $action, $method);
+          print_r($form);
         }
         else {
           $form = self::createDefaultForm($scheme, $formFile, $language, $formName, $action, $method);
@@ -116,7 +117,7 @@
     }
 
 
-    private static function addObligatedWidgets(One_Form_Container_Form $form, One_Scheme $scheme)
+     static function addObligatedWidgets(One_Form_Container_Form $form, One_Scheme $scheme)
     {
       // the form should always have a (hidden) widget with the value of the identityAttribute unless there is no identityAttribute
       if (!is_null($scheme->getIdentityAttribute()) && !$form->hasWidget($scheme->getIdentityAttribute()->getName())) {
@@ -144,14 +145,14 @@
         foreach ($places as $container) {
           if (preg_match('|([^/]*).php$|', $container, $match)) {
             if (in_array($match[1], $ignore) || strpos($match[1], '.') !== false) {
-              unset($containers[$cKey]);
+              unset($containers[$container]);
             }
             else {
-              $containers[$cKey] = strtolower($match[1]);
+              $containers[$container] = strtolower($match[1]);
             }
           }
           else {
-            unset($containers[$cKey]);
+            unset($containers[$container]);
           }
         }
         sort($containers);
