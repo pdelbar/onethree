@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>one|three by pdelbar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">one|three</h1>
+      <h2 class="project-tagline">one|content for Joomla 3.x</h2>
+      <a href="https://github.com/pdelbar/onethree" class="btn">View on GitHub</a>
+      <a href="https://github.com/pdelbar/onethree/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/pdelbar/onethree/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <pre><code>                            @@                             @@                       @@
+ @@@@@@  @@ @@@@@   @@@@@@  @@  @@@@@@   @@@@@@  @@ @@@@@  @@@@@  @@@@@@  @@ @@@@@  @@@@@
+@@    @@ @@@    @@ @@    @@ @@ @@    @@ @@    @@ @@@    @@ @@    @@    @@ @@@    @@ @@
+@@    @@ @@     @@ @@@@@@@@ @@ @@       @@    @@ @@     @@ @@    @@@@@@@@ @@     @@ @@
+@@    @@ @@     @@ @@       @@ @@    @@ @@    @@ @@     @@ @@    @@       @@     @@ @@
+ @@@@@@  @@     @@  @@@@@@  @@  @@@@@@   @@@@@@  @@     @@  @@@@  @@@@@@  @@     @@  @@@@
+                            @@
+
+                      Everything is content. Content is everything.
+</code></pre>
+
+<p>This is the base repository for one|content for Joomla 3.x. </p>
+
+<pre><code>.
+    build/  contains the phing build script and tooling
+    src/    contains the source for the various parts of one|content
+    doc/    contains something akin to documentation 
+</code></pre>
+
+<h1>
+<a id="building-onecontent" class="anchor" href="#building-onecontent" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building one|content</h1>
+
+<p>Currently, you will need phing to build the extensions needed to install one|content in Joomla 3.x. Run </p>
+
+<pre><code>$ phing
+</code></pre>
+
+<p>to get a list of targets you can build. </p>
+
+<h1>
+<a id="installing-onecontent" class="anchor" href="#installing-onecontent" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing one|content</h1>
+
+<h2>
+<a id="easy" class="anchor" href="#easy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Easy</h2>
+
+<p>Use the <strong>pkg_one.zip</strong> installer package. It's not working yet, but when it is finished, life will be easier.</p>
+
+<h2>
+<a id="harder" class="anchor" href="#harder" aria-hidden="true"><span class="octicon octicon-link"></span></a>Harder</h2>
+
+<p>You will need to build and install the following parts:</p>
+
+<ul>
+<li>the system plugin (target: <strong>plg_one</strong>) which sets up the autoloader for one|content</li>
+<li>the <strong>core</strong> and <strong>joomla</strong> extensions, containing the standard library</li>
+<li>the <strong>script</strong> extension containing what was formerly known as <em>nanoscript</em> which is now integral part of one|content </li>
+<li>the <strong>com_one</strong> component, for obvious reasons.</li>
+</ul>
+
+<h1>
+<a id="version" class="anchor" href="#version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Version</h1>
+
+<p>The current version is called <strong>predawn</strong> which kind of gives you a hint where we are with one|content. Below is a short summary of where each part is at in its development cycle.</p>
+
+<p><strong>I'm warning you formally that there will be significant changes to class names, file structures etc. before we have the official first GA release.</strong> </p>
+
+<h2>
+<a id="plg_one" class="anchor" href="#plg_one" aria-hidden="true"><span class="octicon octicon-link"></span></a>plg_one</h2>
+
+<p>System plugin needs better parameter config but basically does what it needs to do. </p>
+
+<h2>
+<a id="libraries-aka-onecontent-extensions" class="anchor" href="#libraries-aka-onecontent-extensions" aria-hidden="true"><span class="octicon octicon-link"></span></a>libraries aka. one|content extensions</h2>
+
+<p>Most of one|content's stuff is stored in <code>/libraries/one/lib</code>. The principal library is <strong>core</strong> and it contains the one|content framework itself. The <strong>joomla</strong> extension contains whatever is joomla-specific. The <strong>script</strong> extension contains the default templater, but I've already tested a PHP-ony templater as an alternative, but not thoroughly.  </p>
+
+<p>The code for these is refactored from the previous J2.x version of one|content and heavily work in progress. I assume that most of the short-term changes are going to be located here. To give you an idea, any file named <code>whatever_tbd.php</code> has not been fully sanitized -- which does not by any standard mean that 'regular' files are completely sanitized.</p>
+
+<p>You will also find other src/extension folders containing unmigrated material.</p>
+
+<h2>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>demo</h2>
+
+<p>This is a fun extension I am working on, intended to provide a standard set of one|content material as an introduction. It will use mainly the standard Joomla database tables.  </p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/pdelbar/onethree">one|three</a> is maintained by <a href="https://github.com/pdelbar">pdelbar</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
