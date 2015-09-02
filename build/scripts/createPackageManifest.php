@@ -1,4 +1,4 @@
-<? xml version = "1.0" encoding = "utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <extension
   type="package"
   version="3.0"
@@ -9,11 +9,9 @@
 
   ?>
 
-  <name>one|content package</name>
+  <name>pkg_one</name>
   <packagename>one</packagename>
   <version><?php echo $release; ?></version>
-  <packager>Paul Delbar</packager>
-  <packagerurl>http://pauldelbar.com/</packagerurl>
 
   <author>Paul Delbar</author>
   <creationDate>2015-08</creationDate>
@@ -25,14 +23,16 @@
   <description>one|content is a rich content display and management component</description>
 
   <files folder="packages">
-    <file type="plugin" id="plg_one" group="system">plg_sys_one.zip</file>
+    <file type="plugin" id="one" group="system">plg_sys_one.zip</file>
     <file type="component" id="com_one">com_one.zip</file>
     <?php
-      foreach (explode(',','core,joomla,script') as $ext) :
+      /*
+       foreach (explode(',','core,joomla,script') as $ext) :
         ?>
         <file type="library" id="one/lib/<?php echo $ext; ?>">lib_one_lib_<?php echo $ext; ?>.zip</file>
       <?php
       endforeach;
+      */
     ?>
   </files>
 

@@ -81,9 +81,9 @@
 
         <copy file = "./pkg_one_plugin_system_${release}.zip" tofile = "./work/packages/plg_sys_one.zip" />
         <copy file = "./pkg_one_component_${release}.zip" tofile = "./work/packages/com_one.zip" />
-        <copy file = "./pkg_one_extension_core_${release}.zip" tofile = "./work/packages/lib_one_lib_core.zip" />
+<!--        <copy file = "./pkg_one_extension_core_${release}.zip" tofile = "./work/packages/lib_one_lib_core.zip" />
         <copy file = "./pkg_one_extension_joomla_${release}.zip" tofile = "./work/packages/lib_one_lib_joomla.zip" />
-        <copy file = "./pkg_one_extension_script_${release}.zip" tofile = "./work/packages/lib_one_lib_script.zip" />
+        <copy file = "./pkg_one_extension_script_${release}.zip" tofile = "./work/packages/lib_one_lib_script.zip" />-->
 
         <echo msg="--- Generating the manifest"/>
         <phingcall target="makePackageManifest"/>
