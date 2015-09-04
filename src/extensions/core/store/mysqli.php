@@ -438,7 +438,7 @@
 
       $modified = $model->getModified();
       foreach ($scheme->getLinks() as $link) {
-        if ($link->getLinkType() == "manytoone") {
+        if ($link->getAdapterType() == "manytoone") {
           $fk = $link->fk();
           if (isset($modified[$fk])) {
             $keys[$fk] = $fk;
@@ -474,7 +474,7 @@
         $modifiedRelations = $model->getModifiedRelations();
         // Handle ManyToMany relations
         foreach ($scheme->getLinks() as $link) {
-          if ($link->getLinkType() == "manytomany") {
+          if ($link->getAdapterType() == "manytomany") {
             if (isset($modifiedRelations[$link->getName()])) {
               $model->saveRelated($link);
             }
@@ -523,7 +523,7 @@
 
       $mtos = array();
       foreach ($scheme->getLinks() as $link) {
-        if ($link->getLinkType() == "manytoone") {
+        if ($link->getAdapterType() == "manytoone") {
           $fk = $link->fk();
           if (isset($modified[$fk])) {
             $data->$fk = $modified[$fk];
@@ -564,7 +564,7 @@
 
       // Handle ManyToMany relations
       foreach ($scheme->getLinks() as $link) {
-        if ($link->getLinkType() == "manytomany") {
+        if ($link->getAdapterType() == "manytomany") {
           if (isset($modifiedRelations[$link->getName()])) {
             $model->saveRelated($link);
           }

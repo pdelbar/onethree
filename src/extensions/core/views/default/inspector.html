@@ -59,15 +59,13 @@ table.oneDetailGrid tr td a {{
 {if sch}
 	{set id = one:getIdentityValue( model )}
 	{set listurl = joomla:route('index.php?option=com_one&Itemid='.joomla:getItemid().'&scheme=' . name . '&task=list')}
-    {if false}
-    	{set delurl = joomla:route('index.php?option=com_one&Itemid='.joomla:getItemid().'&scheme=' . name . '&task=remove&id='.id)}
-	    {set edurl = joomla:route('index.php?option=com_one&Itemid='.joomla:getItemid().'&scheme=' . name . '&task=edit&id='.id)}
-    {endif}
+    {set delurl = joomla:route('index.php?option=com_one&Itemid='.joomla:getItemid().'&scheme=' . name . '&task=remove&id='.id)}
+    {set edurl = joomla:route('index.php?option=com_one&Itemid='.joomla:getItemid().'&scheme=' . name . '&task=edit&id='.id)}
 
 	<table class="oneDetailGrid" cellspacing="0" >
 		<tr class="header">
 			<td colspan="4">
-				 Instance <b>{= name}</b> #{= id}
+				 Model <b>{= name}</b> #{= id}
 			</td>
 		</tr>
 		{set atts = sch->get('attributes')}
@@ -98,7 +96,8 @@ table.oneDetailGrid tr td a {{
 					<td colspan=3>
 						 <b>{= lnk->getName()}</b>  ({= card}<i>{= lnk->getTarget()}</i>)
 						 {if count(xxs)>1}
-                            <a href="#" onclick="$$('tr.{= clss}').each( toggle ); var ic = $('x{= clss}').src;; if (ic.match( /bullet_arrow_down.png/ )) {{ $('x{= clss}').src = '{= one:getOneInstance()->getUrl()}/vendor/images/icons/bullet_arrow_up.png'; }} else {{ $('x{= clss}').src = '{= one:getOneInstance()->getUrl()}/vendor/images/icons/bullet_arrow_down.png' }};  return false;"><img id="x{= clss}" style="vertical-align: text-bottom;" src="{= one:getOneInstance()->getUrl()}/vendor/images/icons/bullet_arrow_down.png" ></a>
+                            <a href="#" onclick="jQuery('tr.{= clss}').toggle();
+                          jQuery('i#ic_{= clss}').toggleClass('icon-arrow-down').toggleClass('icon-arrow-up');return false;"><i id="ic_{= clss}" class="icon-arrow-down"></i></a>
                         {endif}
 					</td>
 				 </tr>
@@ -114,10 +113,9 @@ table.oneDetailGrid tr td a {{
 			{endif}
 		{endloop}
 
-        {if false}
 		<tr class="header">
 			<td>
-				 <a href="{= edurl}" style="vertical-align: text-bottom;"><img src="{= one:getOneInstance()->getUrl()}/vendor/images/icons/pencil.png"></a>
+				 <a href="{= edurl}" style="vertical-align: text-bottom;"><i class="icon-pencil"></i></a>
 			</td>
 			<td colspan="3">
 				Edit this instance
@@ -125,13 +123,12 @@ table.oneDetailGrid tr td a {{
 		</tr>
 				<tr class="footer">
 			<td>
-				 <a href="javascript:if(confirm('Delete {= name} {= model->__get(idat)} ?')) document.location='{= delurl}';" style="vertical-align: text-bottom;"><img src="{= one:getOneInstance()->getUrl()}/vendor/images/icons/cross.png"></a>
+				 <a href="javascript:if(confirm('Delete {= name} {= model->__get(idat)} ?')) document.location='{= delurl}';" style="vertical-align: text-bottom;"><i class="icon-delete"></i></a>
 			</td>
 			<td colspan="3">
 				 Delete this instance
 			</td>
 		</tr>
-        {endif}
 
         <tr class="footer">
 			<td align="center">

@@ -1,0 +1,16 @@
+{include label.html}{include info.html}{include error.html}
+
+<div class="OneWidget btn-group">
+    <button class="btn btn-success" id="{= id}_save" name="action" value="save"{= events}{= params} >
+        <i class="icon-edit"></i>
+        Save and close
+    </button>
+    <button class="btn" id="{= id}_apply" name="action" value="apply"{= events}{= params} >
+        <i class="icon-save"></i>
+        Save
+    </button>
+    <button class="btn" id="{= id}_cancel" name="action" value="cancel"{= events}{= params} >
+        <i class="icon-cancel"></i>
+        Close
+    </button>
+</div>
