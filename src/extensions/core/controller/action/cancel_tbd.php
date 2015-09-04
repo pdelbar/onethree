@@ -6,5 +6,5 @@
 
   * @TODO review this file and clean up historical code/comments
  **/
-class One_Action_Cancel extends One_Action_EditCancel
+class One_Controller_Action_Cancel extends One_Controller_Action_EditCancel
 {}

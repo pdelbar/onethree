@@ -5,7 +5,7 @@
    *
    * ONEDISCLAIMER
    **/
-  class One_Action_EditCancel extends One_Action_Edit
+  class One_Controller_Action_EditCancel extends One_Controller_Action_Edit
   {
     /**
      * This function performs the cancellation and returns to the proper page

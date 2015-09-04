@@ -6,5 +6,5 @@
 
   * @TODO review this file and clean up historical code/comments
  **/
-class One_Action_Update extends One_Action_EditUpdate
+class One_Controller_Action_Apply extends One_Controller_Action_EditUpdate
 {}

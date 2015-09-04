@@ -105,7 +105,7 @@
        *
        * @TODO add a One_Controller::buildRoute/parseRoute pair to handle these special routes
        *
-       * Else, we ask the standard One_Action class to tell us what the route should be. In that case, it needs to
+       * Else, we ask the standard One_Controller_Action class to tell us what the route should be. In that case, it needs to
        * answer in the same way as for a special routing.
        */
       $data      = array('task' => $task, 'view' => $view);

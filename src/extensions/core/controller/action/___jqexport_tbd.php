@@ -6,7 +6,7 @@
   * @TODO review this file and clean up historical code/comments
  * ONEDISCLAIMER
  **/
-class One_Action_Jqexport extends One_Action_List {
+class One_Controller_Action_Jqexport extends One_Controller_Action_List {
   /**
    * This method returns the list view of the currently chosen item
    *

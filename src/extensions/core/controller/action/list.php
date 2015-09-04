@@ -5,7 +5,7 @@
    *
    * ONEDISCLAIMER
    **/
-  class One_Action_List extends One_Action
+  class One_Controller_Action_List extends One_Controller_Action
   {
     /**
      * Class constructor
@@ -33,20 +33,20 @@
       switch (strtolower($type)) {
 //  this should be handled by a REST call
 //        case 'json':
-//          $action = new One_Action_Json($this->controller, $this->options);
+//          $action = new One_Controller_Action_Json($this->controller, $this->options);
 //          $action->execute();
 //          break;
 
 
 //  this was used for the old jqgrid widget
 //        case 'jqgrid':
-//          $action = new One_Action_Show($this->controller, $this->options);
+//          $action = new One_Controller_Action_Show($this->controller, $this->options);
 //          $return = $action->execute();
 //          break;
 
 //  Most likely the standard jgrid used in the admin earlier
 //        case 'jgrid':
-//          $action = new One_Action_Jgrid($this->controller, $this->options);
+//          $action = new One_Controller_Action_Jgrid($this->controller, $this->options);
 //          $return = $action->execute();
 //          break;
 

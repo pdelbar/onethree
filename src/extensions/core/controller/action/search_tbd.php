@@ -9,7 +9,7 @@
 ONEDISCLAIMER
 
  **/
-class One_Action_Search extends One_Action
+class One_Controller_Action_Search extends One_Controller_Action
 {
 	/**
 	 * @var string name of the searchform
@@ -34,7 +34,7 @@ class One_Action_Search extends One_Action
 
 	/**
 	 * This method renders the search form and if needed fetches and show the search results
-	 * @see plugins/system/one/lib/action/One_Action#execute()
+	 * @see plugins/system/one/lib/action/One_Controller_Action#execute()
 	 */
 	public function execute()
 	{

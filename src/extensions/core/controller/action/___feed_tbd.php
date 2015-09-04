@@ -8,7 +8,7 @@
 ONEDISCLAIMER
 
  **/
-class One_Action_Feed extends One_Action
+class One_Controller_Action_Feed extends One_Controller_Action
 {
 	/**
 	 * Class constructor

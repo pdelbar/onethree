@@ -7,7 +7,7 @@
  *
  * ONEDISCLAIMER
  **/
-class One_Action_EditUpdate extends One_Action_Edit {
+class One_Controller_Action_EditUpdate extends One_Controller_Action_Edit {
   /**
    * Class constructor
    *

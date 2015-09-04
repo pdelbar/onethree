@@ -9,7 +9,7 @@
 ONEDISCLAIMER
 
  **/
-class One_Action_Jqgrid extends One_Action
+class One_Controller_Action_Jqgrid extends One_Controller_Action
 {
 	/**
 	 * Class constructor

@@ -5,7 +5,7 @@
    *
    * ONEDISCLAIMER
    **/
-  class One_Action_EditShow extends One_Action_Edit
+  class One_Controller_Action_EditShow extends One_Controller_Action_Edit
   {
     /**
      * This method composes the form and returns the output

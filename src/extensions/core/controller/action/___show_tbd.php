@@ -8,7 +8,7 @@
 ONEDISCLAIMER
 
  **/
-class One_Action_Show extends One_Action
+class One_Controller_Action_Show extends One_Controller_Action
 {
 	/**
 	 * Class constructor

@@ -6,7 +6,7 @@
 
   * @TODO review this file and clean up historical code/comments
  **/
-class One_Action_Copy extends One_Action
+class One_Controller_Action_Copy extends One_Controller_Action
 {
 	/**
 	 * Class constructor

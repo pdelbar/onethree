@@ -6,7 +6,7 @@
    *
    * ONEDISCLAIMER
    **/
-  class One_Action_Edit extends One_Action
+  class One_Controller_Action_Edit extends One_Controller_Action
   {
     /**
      * @var mixed the ID of the chosen item
@@ -43,14 +43,14 @@
         case 'apply':
         case 'update':
         case 'insert':
-          $actionClass = new One_Action_EditUpdate($this->controller, $this->options);
+          $actionClass = new One_Controller_Action_EditUpdate($this->controller, $this->options);
           break;
         case 'cancel':
-          $actionClass = new One_Action_EditCancel($this->controller, $this->options);
+          $actionClass = new One_Controller_Action_EditCancel($this->controller, $this->options);
           break;
         case 'show':
         default:
-          $actionClass = new One_Action_EditShow($this->controller, $this->options);
+          $actionClass = new One_Controller_Action_EditShow($this->controller, $this->options);
           break;
       }
 

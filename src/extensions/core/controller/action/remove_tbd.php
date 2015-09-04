@@ -8,7 +8,7 @@
 ONEDISCLAIMER
 
  **/
-class One_Action_Remove extends One_Action
+class One_Controller_Action_Remove extends One_Controller_Action
 {
 	/**
 	 * @var mixed the ID of the chosen item

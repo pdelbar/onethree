@@ -5,7 +5,7 @@
    *
    * ONEDISCLAIMER
    **/
-  class One_Action_Detail extends One_Action
+  class One_Controller_Action_Detail extends One_Controller_Action
   {
     /**
      * @var mixed the ID of the chosen item

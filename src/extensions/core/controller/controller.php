@@ -98,14 +98,14 @@
         return $this->$method($options);
       }
       else {
-        if (class_exists('One_Action_Scheme_' . ucfirst($options['scheme']) . '_' . ucfirst($task))) {
-          $className = 'One_Action_Scheme_' . ucfirst($options['scheme']) . '_' . ucfirst($task);
+        if (class_exists('One_Controller_Action_Scheme_' . ucfirst($options['scheme']) . '_' . ucfirst($task))) {
+          $className = 'One_Controller_Action_Scheme_' . ucfirst($options['scheme']) . '_' . ucfirst($task);
           $action    = new $className($this, $options);
           return $action->execute();
         }
         else {
-          if (class_exists('One_Action_' . ucfirst($task))) {
-            $className = 'One_Action_' . ucfirst($task);
+          if (class_exists('One_Controller_Action_' . ucfirst($task))) {
+            $className = 'One_Controller_Action_' . ucfirst($task);
             $action    = new $className($this, $options);
             return $action->execute();
           }

@@ -9,7 +9,7 @@
  *
 
  **/
-class One_Action_Calendar extends One_Action
+class One_Controller_Action_Calendar extends One_Controller_Action
 {
 	/**
 	 * @var int Current chosen day

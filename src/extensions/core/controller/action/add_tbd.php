@@ -9,5 +9,5 @@
  *
 
  **/
-class One_Action_Add extends One_Action_Edit
+class One_Controller_Action_Add extends One_Controller_Action_Edit
 {}

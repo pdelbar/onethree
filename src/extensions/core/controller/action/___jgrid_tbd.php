@@ -6,7 +6,7 @@
 
   * @TODO review this file and clean up historical code/comments
  **/
-class One_Action_Jgrid extends One_Action
+class One_Controller_Action_Jgrid extends One_Controller_Action
 {
 	/**
 	 * @var array Array of attributes that should have a filter in the view

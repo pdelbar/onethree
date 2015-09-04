@@ -8,7 +8,7 @@
 ONEDISCLAIMER
 
  **/
-class One_Action_Delete extends One_Action_Remove
+class One_Controller_Action_Delete extends One_Controller_Action_Remove
 {
 
 }

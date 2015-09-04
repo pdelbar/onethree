@@ -206,7 +206,7 @@ class One_Routing
 		}
 		else {
       // modified, now take a look at standard actions
-      $actionClass= 'One_Action_' . ucfirst($options['task']);
+      $actionClass= 'One_Controller_Action_' . ucfirst($options['task']);
       if (class_exists($actionClass)) {
         return $actionClass::getStandardRouting($options);
       }

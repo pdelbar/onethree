@@ -1,12 +1,12 @@
 <?php
 /**
- * One_Action is the abstract base class for all actions. The One_Controller first tries to handle a task locally,
+ * One_Controller_Action is the abstract base class for all actions. The One_Controller first tries to handle a task locally,
  * but if no handler is defined inside the controller, it defers to first a scheme-specific and then a generic
- * One_Action subcontroller. This effectively makes it easier to define generic actions in a flexible way.
+ * One_Controller_Action subcontroller. This effectively makes it easier to define generic actions in a flexible way.
  *
  * ONEDISCLAIMER
  **/
-abstract class One_Action
+abstract class One_Controller_Action
 {
 	/**
 	 * @var One_Controller The controller using the current action

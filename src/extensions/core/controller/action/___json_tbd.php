@@ -8,7 +8,7 @@
 ONEDISCLAIMER
 
  **/
-class One_Action_Json extends One_Action_List
+class One_Controller_Action_Json extends One_Controller_Action_List
 {
 	/**
 	 * This method returns the list view of the currently chosen item
