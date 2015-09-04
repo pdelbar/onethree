@@ -80,7 +80,7 @@ Class One_Form_Widget_Scalar_Date extends One_Form_Widget_Scalar
 		$info    = $this->getCfg('info');
 		$error   = $this->getCfg('error');
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$this->setCfg('class', 'OneFieldDate ' . $this->getCfg('class'));
 
@@ -126,7 +126,7 @@ Class One_Form_Widget_Scalar_Date extends One_Form_Widget_Scalar
 		$id    = $this->getID();
 		$name  = $this->getFormName();
 		$value  = $this->getValue( $model );
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		// @todo: should we rather use this?  does the same as preg_match, no?
 //		$date = getdate(strtotime($value));
@@ -186,7 +186,7 @@ Class One_Form_Widget_Scalar_Date extends One_Form_Widget_Scalar
 		$name  = $this->getName();
 		$value  = $this->getValue( $model );
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		preg_match('/^(\d{4})-(\d{2})-(\d{2})( (\d{2}):(\d{2}):(\d{2}))?$/' ,$value, $matches);
 
@@ -280,7 +280,7 @@ Class One_Form_Widget_Scalar_Date extends One_Form_Widget_Scalar
 		$name  = $this->getName();
 		$value  = $this->getValue( $model );
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$extraParams = array('default' => $this->getDefault());
 		if(in_array($this->getCfg('one'), array('one', 'yes', 'true', '1'))) {

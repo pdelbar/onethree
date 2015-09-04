@@ -70,7 +70,7 @@ class One_Form_Container_Comment extends One_Form_Container_Abstract
 		$params = $this->getParametersAsString();
 		$events = $this->getEventsAsString();
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$dom->add('<div id="' . $id . '"' . $params . $events . '>' . "\n");
 

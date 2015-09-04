@@ -49,7 +49,7 @@ Class One_Form_Container_Jpaneslider extends One_Form_Container_Abstract
 	{
 		$id     = $this->getID();
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$dom->add('<div id="content-sliders-" class="pane-sliders">
 			<div style="display:none;">

@@ -46,7 +46,7 @@ Class One_Form_Widget_File extends One_Form_Widget_Abstract
 		$info    = $this->getCfg('info');
 		$error   = $this->getCfg('error');
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$this->setCfg('class', 'OneFieldInput' . $this->getCfg('class'));
 

@@ -108,7 +108,7 @@ class One_Form_Widget_Joomla_HTML extends One_Form_Widget_Abstract
 		JHTML::_('behavior.modal');
 		JHTML::_('behavior.modal', 'a.modal-button');
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$dom->add( '<span class="OneWidget clearfix">' );
 

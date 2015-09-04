@@ -548,7 +548,7 @@ abstract class One_Form_Widget_Abstract
       throw new One_Exception('Error loading template for widget ' . $this->_type . ' : ' . $script->error);
     }
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
     $dom->add($script->execute($data));
 
 

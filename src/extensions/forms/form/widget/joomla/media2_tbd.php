@@ -86,7 +86,7 @@ Class One_Form_Widget_Joomla_Media2 extends One_Form_Widget_Abstract
 		$name     = $this->getName();
 		$id       = $this->getID();
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		JHtml::_('behavior.modal');
 

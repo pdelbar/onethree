@@ -51,7 +51,7 @@ Class One_Form_Widget_Scalar_Color extends One_Form_Widget_Scalar
 						'One::getInstance()->getUrl()' => One_Config::getInstance()->getUrl()
 					);
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 		$dom->add( '<script type="text/javascript" src="'.One_Vendor::getInstance()->getSitePath().'/js/ColorPicker2.js"></script>', '_head' );
 		$dom->add( '<script type="text/javascript">
 	      var cp = new ColorPicker( "window" );

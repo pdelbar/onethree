@@ -66,7 +66,7 @@ abstract class One_Form_Widget_Search_Op_Abstract
 	 */
 	protected function parse( $data = array() )
 	{
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
     die('this is really deprecated stuff : ' . __FILE __ );
 

@@ -53,7 +53,7 @@ Class One_Form_Container_Tabber extends One_Form_Container_Abstract
 	protected function _render( $model, One_Dom $d )
 	{
 		$id  = $this->getID();
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$css = ( ( trim( $this->getCfg( 'css' ) ) != '' ) ? trim( $this->getCfg( 'css' ) ) : One_Config::getInstance()->getUrl() . 'lib/libraries/tabber/tabber.css' );
 

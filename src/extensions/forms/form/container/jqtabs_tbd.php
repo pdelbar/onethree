@@ -56,7 +56,7 @@ Class One_Form_Container_Jqtabs extends One_Form_Container_Abstract
 	protected function _render($model, One_Dom $d)
 	{
 		$id 	= md5($this->getID().microtime(true));
-		$dom    = One_Repository::getDom();
+		$dom    = One_Repository::createDom();
 
 		$dom->jqtabs   = array();
 		$dom->jqtitles = array();

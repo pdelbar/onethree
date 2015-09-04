@@ -63,7 +63,7 @@ Class One_Form_Container_Mootabs extends One_Form_Container_Abstract
 		$width  = ( is_null( $this->getCfg( 'width' ) ) ) ? 400 : intval( $this->getCfg( 'width' ) );
 		$height = ( is_null( $this->getCfg( 'height' ) ) ) ? 300 : intval( $this->getCfg( 'height' ) );
 		$css    = ( is_null( $this->getCfg( 'css' ) ) ) ? One_Vendor::getInstance()->getSitePath() . '/mootabs/mootabs1.2.css' : $this->getCfg( 'css' );
-		$dom    = One_Repository::getDom();
+		$dom    = One_Repository::createDom();
 
 		$dom->add( '<script type="text/javascript" src="' . One_Vendor::getInstance()->getSitePath() . '/mootabs/mootabs1.2.js"></script>', '_head' );
 		$dom->add( '<script type="text/javascript">

@@ -66,7 +66,7 @@ Class One_Form_Widget_Scalar_Html extends One_Form_Widget_Scalar_Textarea
 		$width   = ( intval( $this->getCfg('width') ) ) ? 600 : intval( $this->getCfg('width') );
 		$height  = ( intval( $this->getCfg('height') ) ) ? 300 : intval( $this->getCfg('height') );
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$this->setCfg('class', 'OneFieldHtml ' . $this->getCfg('class'));
 

@@ -58,7 +58,7 @@ Class One_Form_Container_Mootab extends One_Form_Container_Abstract
 		$id     = $this->getID();
 		$title = $this->getCfg('title');
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 		$dom->add('<div id="' . $id . '" class="mootabs_panel">' . "\n");
 
 		$d->mootitles[] = array(

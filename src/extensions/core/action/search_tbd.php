@@ -75,7 +75,7 @@ class One_Action_Search extends One_Action
 			$session->remove('results', 'one_search');
 		}
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$this->view->setModel( $model );
 		$this->view->set( 'scheme', $this->scheme );

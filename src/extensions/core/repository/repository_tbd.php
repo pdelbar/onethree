@@ -275,7 +275,7 @@
      * @static
      * @return One_Dom
      */
-    public static function getDom($type = NULL)
+    public static function createDom($type = NULL)
     {
       $domClass = 'One_Dom_' . ucfirst(strtolower($type));
       if (!is_null($type) && class_exists($domClass)) {

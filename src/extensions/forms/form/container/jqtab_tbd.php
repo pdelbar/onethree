@@ -55,7 +55,7 @@ Class One_Form_Container_Jqtab extends One_Form_Container_Abstract
 		$id 	= md5($this->getID().microtime(true));
 		$title	= '' != trim($this->getCfg('title')) ? trim($this->getCfg('title')) : $this->getID();
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 		$dom->add('<div id="'.$id.'"">'."\n");
 
 		$d->jqtitles[] = array(

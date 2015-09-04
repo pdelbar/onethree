@@ -71,7 +71,7 @@ Class One_Form_Container_Fieldset extends One_Form_Container_Abstract
 		$params = $this->getParametersAsString();
 		$events = $this->getEventsAsString();
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$dom->add('<fieldset id="' . $id . '"' . $params . $events . '>' . "\n");
 

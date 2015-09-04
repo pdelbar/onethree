@@ -35,7 +35,7 @@
       $form     = One_Form_Factory::createForm($this->scheme, $formFile, $this->getVariable('lang'), 'oneForm', '');
 
       // Create a DOM and render the form in it
-      $dom = One_Repository::getDom();
+      $dom = One_Repository::createDom();
       $form->render($model, $dom);
 //    print_r($dom);
 

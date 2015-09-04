@@ -39,7 +39,7 @@ class oneScriptPackageOneform extends One_Script_Package
 
 	public function render(One_Form_Container_Form $form, $model)
 	{
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		try {
 			$form->render($model, $dom);
@@ -52,7 +52,7 @@ class oneScriptPackageOneform extends One_Script_Package
 
 	public function renderStart(One_Form_Container_Form $form, $model)
 	{
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 		$form->renderStart($model, $dom);
 
 		return $dom->render();
@@ -60,14 +60,14 @@ class oneScriptPackageOneform extends One_Script_Package
 
 	public function renderBody(One_Form_Container_Form $form, $model)
 	{
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 		$form->renderBody($model, $dom);
 		return $dom->render();
 	}
 
 	public function renderEnd(One_Form_Container_Form $form, $model)
 	{
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 		$form->renderEnd($model, $dom);
 
 		return $dom->render();
@@ -81,7 +81,7 @@ class oneScriptPackageOneform extends One_Script_Package
 		}
 		else
 		{
-			$dom = One_Repository::getDom();
+			$dom = One_Repository::createDom();
 			$toRender->render($model, $dom);
 
 			return $dom->render();

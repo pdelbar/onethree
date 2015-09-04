@@ -71,7 +71,7 @@ Class One_Form_Container_Jpane extends One_Form_Container_Abstract
 		$events = $this->getEventsAsString();
 		$title = $this->getCfg('title');
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$dom->add('<div class="panel">' . "\n");
 		$dom->add('<h3 id="' . $id . '-title" class="pane-toggler title"' . $params . $events . '><a href="javascript:void(0);"><span>' . $title . '</span></a></h3>' . "\n");

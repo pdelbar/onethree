@@ -122,7 +122,7 @@
       $params = $this->getParametersAsString();
       $events = $this->getEventsAsString();
 
-      $dom = One_Repository::getDom();
+      $dom = One_Repository::createDom();
 
       $dom->add('<form name="' . $id . '" id="' . $id . '" action="' . $this->_action . '" method="' . $method . '"' . $params . $events . '>' . "\n");
       $d->addDom($dom);
@@ -136,7 +136,7 @@
      */
     public function renderBody($model, One_Dom $d)
     {
-      $dom = One_Repository::getDom();
+      $dom = One_Repository::createDom();
       foreach ($this->getContent() as $content) {
         $content->render($model, $dom);
       }
@@ -151,7 +151,7 @@
      */
     public function renderEnd($model, One_Dom $d)
     {
-      $dom = One_Repository::getDom();
+      $dom = One_Repository::createDom();
       $dom->add('</form>' . "\n");
       $d->addDom($dom);
     }

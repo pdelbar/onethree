@@ -57,7 +57,7 @@ Class One_Form_Container_Tabbertab extends One_Form_Container_Abstract
 		$id     = $this->getID();
 		$title = $this->getCfg('title');
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 		$dom->add('<div id="' . $id . '" class="tabbertab' . ( ( trim( $this->getCfg( 'default' ) ) == 'default' ) ? ' tabbertabdefault' : '' ) . '"' . ( ( trim( $title ) != '' ) ? ' title="' . $title . '"' : '' ) . '>' . "\n");
 
 		foreach($this->getContent() as $content)

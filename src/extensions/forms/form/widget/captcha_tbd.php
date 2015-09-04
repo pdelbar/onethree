@@ -44,7 +44,7 @@ class One_Form_Widget_Captcha extends One_Form_Widget_Abstract
 		$info    = $this->getCfg('info');
 		$error   = $this->getCfg('error');
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		$config = array();
 		foreach($this->getParameters() as $param => $value)

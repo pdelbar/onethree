@@ -100,7 +100,7 @@ Class One_Form_Widget_Joomla_Media extends One_Form_Widget_Abstract
 		$href		= ($button->get('link')) ? 'href="'.JURI::base().$button->get('link').'"' : null;
 		$onclick	= ($button->get('onclick')) ? 'onclick="'.$button->get('onclick').'"' : null;
 
-		$dom = One_Repository::getDom();
+		$dom = One_Repository::createDom();
 
 		// should we show a label?
 		if( !is_null($this->getLabel()) )
