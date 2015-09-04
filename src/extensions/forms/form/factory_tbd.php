@@ -41,7 +41,11 @@
       try {
         if ($filepath !== null) {
           $form = One_Form_Reader_Xml::load($filepath, $scheme, $language, $formName, $action, $method);
-          print_r($form);
+//          echo '<pre>';
+//          print_r($form);
+//          echo '</pre>';
+//          echo '<hr>';
+//          print_r(self::createDefaultForm($scheme, $formFile, $language, $formName, $action, $method));
         }
         else {
           $form = self::createDefaultForm($scheme, $formFile, $language, $formName, $action, $method);
@@ -140,9 +144,11 @@
     public static function getAvailable()
     {
       if (is_null(self::$availableCW)) {
+        $containers = array();
         $places = One_Locator::locateAllUsing('*.php', '%ROOT%/form/container/');
         $ignore = array('abstract', 'index', 'factory');
         foreach ($places as $container) {
+          $container = preg_replace('/_tbd.php$/','.php',$container);   //TODO: replace tmp fix
           if (preg_match('|([^/]*).php$|', $container, $match)) {
             if (in_array($match[1], $ignore) || strpos($match[1], '.') !== false) {
               unset($containers[$container]);
@@ -157,8 +163,10 @@
         }
         sort($containers);
 
+        $widgets = array();
         $places = One_Locator::locateAllUsing('*.php', '%ROOT%/form/widget/{joomla,multi,scalar,select,search}/');
         foreach ($places as $widget) {
+          $widget = preg_replace('/_tbd.php$/','.php',$widget);   //TODO: replace tmp fix
           if (preg_match('|([^/]*)/([^/]*).php$|', $widget, $match)) {
             if (!in_array($match[2], $ignore)) {
               $widgets[] = $match[1] . '-' . strtolower($match[2]);

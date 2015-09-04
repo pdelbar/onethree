@@ -6,7 +6,7 @@
  *
  * ONEDISCLAIMER
  **/
-abstract class One_Action implements One_Action_Interface
+abstract class One_Action
 {
 	/**
 	 * @var One_Controller The controller using the current action
