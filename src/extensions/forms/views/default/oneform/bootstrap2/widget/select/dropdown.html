@@ -1,0 +1,19 @@
+{include label.html}{include info.html}{include error.html}
+{set oriLabel = label}
+<div class="OneWidget control-group {if hasError}error{endif}">
+    <label class="control-label" for="{= id}">{@ LABEL}</label>
+    <div class="controls">
+        <select id="{= id}" name="{= name}"{= params}{= events}>
+            {loop options optvalue optlabel}
+            {set selected = ''}
+            {if optvalue == value}{set selected = ' selected="selected"'}{endif}
+            <option value="{= optvalue}"{= selected}>{= optlabel}</option>
+            {endloop}
+        </select>
+    </div>
+</div>
+{@ INFO}
+{@ ERROR}
+
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scheme name="faqcategory">
+	<info>
+		<title>FAQ categorie</title>
+		<description></description>
+		<image></image>
+		<options></options>
+	</info>
+	<attributes>
+		<attribute name="id" type="int" identity="true" />
+		<attribute name="name_nl" type="string"  />
+		<attribute name="name_fr" type="string"  />
+	</attributes>
+	<relations>
+		<relation name="faqs_faqcategory" />
+	</relations>
+	
+	<tasks>
+		<task name="edit;remove">
+			<conditions>
+				<condition>
+					<rule type="jbackend" />
+				</condition>
+			</conditions>
+		</task>
+	</tasks>
+	<connection name="joomla" table="#__faqcategory" />
+</scheme>

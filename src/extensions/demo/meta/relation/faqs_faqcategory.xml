@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<relation name="faqs_faqcategory">
+	<roles>
+		<role name="faqcategory" scheme="faqcategory" cardinality="one"/>
+		<role name="faqs" scheme="faq" cardinality="many" fk="category_id" />
+	</roles>
+</relation>

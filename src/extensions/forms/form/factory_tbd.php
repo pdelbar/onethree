@@ -173,6 +173,7 @@
             }
           }
         }
+        $widgets[] = 'defaultactions';
         $widgets[] = 'button';
         $widgets[] = 'file';
         $widgets[] = 'submit';

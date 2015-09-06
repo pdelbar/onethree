@@ -116,6 +116,7 @@
 //    $templater->clearSearchpath();
 //    $templater->setSearchpath($oldSearchpaths);
 
+//      print_r($form);
       return $form;
     }
 
@@ -552,6 +553,7 @@
      */
     protected static function identifyElement($name)
     {
+//      echo $name;
       $availableCW = One_Form_Factory::getAvailable();
 //      print_r($availableCW);
       $className   = NULL;
@@ -560,7 +562,7 @@
         $className = 'One_Form_Container_' . ucfirst($name);
       }
       elseif (in_array($name, $availableCW['widgets'])) {
-        $single = array('submit', 'label', 'button', 'nscript', 'inline');
+        $single = array('submit', 'label', 'button', 'nscript', 'inline', 'defaultactions');
         if (in_array($name, $single)) {
           $className = 'One_Form_Widget_' . ucfirst($name);
         }
