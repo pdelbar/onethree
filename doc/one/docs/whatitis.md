@@ -8,7 +8,7 @@ Considering @oc allows you to represent rich content, it qualifies as a CCK. If 
 
 What @oc lacks is the easy point-and-click interface many CCKs have to define fields and field types. It's still an integrator toolkit, and will probably never have a sexy UI like I've seen on other CCKs. That said, most people who use @oc tend to forgive that weakness rapidly.
  
- ## Is it a framework?
+## Is it a framework?
  
 Frameworks are usually MVC-oriented, containing elaborate architectures on model, view and controller aspects. ORM frameworks would come closest to @oc because of their declarative approach to data modeling. But even though you will find lightweight and heavy ones, they are all about the code-level capabilities, so you'll be writing code at some point, or scaffolding it. 
  

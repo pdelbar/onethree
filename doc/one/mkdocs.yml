@@ -1,0 +1,10 @@
+site_name: one|content
+pages:
+- Home: index.md
+- Introduction:
+  - 'What is one|content' : whatitis.md
+  - History: intro.md
+- Basics: basics/basics.md
+- Forms:
+  - Introduction: forms/forms.md
+theme: flatly
