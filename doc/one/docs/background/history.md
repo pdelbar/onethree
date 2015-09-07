@@ -1,7 +1,3 @@
-# Introduction to @oc
-
-Welcome to &oc. This document discusses a flexible rich content framework, whose primary use is to make it easy to use structured and linked data in Joomla, avoiding having to squeeze it into articles or writing code. 
-
 But I'm giving away too much already. Let me tell you about why we created @oc.
 
 ## How it all began

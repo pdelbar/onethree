@@ -1,10 +1,24 @@
 site_name: one|content
 pages:
-- Home: index.md
-- Introduction:
-  - 'What is one|content' : whatitis.md
-  - History: intro.md
-- Basics: basics/basics.md
-- Forms:
-  - Introduction: forms/forms.md
-theme: flatly
+- Home: home.md
+- Background:
+  - 'What @oc is for': background/why.md
+  - History: background/history.md
+  - 'What is one|content' : background/whatitis.md
+- Documentation:
+  - 'Concepts': manual/concepts.md
+  - 'Joomla extensions': manual/joomla.md
+  - 'Templating': manual/template.md
+  - 'Using @oc in code': manual/code.md
+  - 'Extending @oc': manual/extend.md
+- Extensions:
+  - core: extensions/core.md
+  - joomla: extensions/joomla.md
+  - script: extensions/script.md
+  - forms: extensions/forms.md
+- Installation:
+  - Download: install/download.md
+  - 'Building one|content': install/build.md
+  - 'Installing one|content': install/install.md
+  - 'Release status': install/release.md
+theme_dir: onetheme

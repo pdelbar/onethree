@@ -1,0 +1,1 @@
+See [the template section](template.md) of the manual.

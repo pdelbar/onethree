@@ -6,7 +6,7 @@ This chapter explains the concepts of @oc using a simple example and as little c
 
 Let's first describe the information used to represent a person. In @oc, we call this a **scheme**.
 
-### The 'emplpyee' scheme
+### The **employee** scheme
 
 Schemes are one of the most important pieces of 'meta' knowledge in @oc. They centralize a lot of what we know about a data type, starting with a name that describes the type. Use whatever you want, and stay as close to the real world example as you can. For our example, we'll call the first scheme **employee**. 
 
@@ -50,7 +50,7 @@ In most cases, we need a data store  to persist models. In @oc, this is called t
 
 When you're working in Joomla, the Joomla database will be a store you will use often. But you may use another MySQL database, or an Oracle one, or a webservice. An Excel file. The details of *how* a store works are defined by the *type*  of store, and @oc comes with a few of them (and you can add others). 
 
-# Connections
+### Connections
 
 Getting models out of and into the store may require some detailed parameters. For instance, which database table a person instance lives in. The **connection** describes where in the store the data lives. In our description, we would add:
 
@@ -67,17 +67,23 @@ Getting models out of and into the store may require some detailed parameters. F
 
 Our employee directory will most likely include a list of all employees. It will look something like this:
 
-	2. Brian Seaman
-	3. Pjotr Eastman
-	5. Sandra Kim
+<div class="well">
+<li>2. Brian Seaman</li>
+<li>3. Pjotr Eastman</li>
+<li>5. Sandra Kim</li>
+</div>
 
 Another view would represent a single employee in a card-style box:
 
-	+---------+----------------------------------+
-	|         | SEAMAN, Brian                    |
-	| picture |                                  |
-	|         | Employee #2                      |
-	+---------+----------------------------------+
+<div style="border: 1px solid #cccccc; border-radius: 2px; box-shadow: #999999 4px 4px 4px; padding: 0.5em 1.5em; margin-bottom: 1.5em;">
+  <i class="fa fa-user fa-5x pull-left"></i>
+  <div class="pull-left">
+  <h4>SEAMAN, Brian</h4>
+  <p><i>Employee #2</i></p>
+  </div>
+  <br style="clear: both;">
+</div>
+
 
 Representing employees in the same visual way across our site makes the UX experience more logical for our visitors. @oc promotes this type of 'semantic view' by allowing (or forcing) you to build scheme-specific views, and use them as OO-style **building blocks**. For instance, we can also build a list of employees by repeating the card view, instead of the initial approach. If our `list` view is composed of repeated `card` views, and we change how a card is represented, our entire UX changes and remains consistent. 
 
@@ -132,3 +138,6 @@ Filters accept a parameters array in their constructor.
 ## More controller stuff
 
 ### Behaviors
+
+### Routings
+
